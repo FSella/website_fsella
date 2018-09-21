@@ -10,31 +10,29 @@ weight = 5
 # List your academic interests.
 [interests]
   interests = [
-    "Artificial Intelligence",
-    "Computational Linguistics",
-    "Information Retrieval"
+    "Numerical Cognition",
+    "Child Development",
+    "Cognitive Psychology"
   ]
 
 # List your qualifications (such as academic degrees).
 [[education.courses]]
-  course = "PhD in Artificial Intelligence"
-  institution = "Stanford University"
-  year = 2012
+  course = "PhD in Developmental Psychology"
+  institution = "University of Padova"
+  year = 2013
 
 [[education.courses]]
-  course = "MEng in Artificial Intelligence"
-  institution = "Massachusetts Institute of Technology"
-  year = 2009
-
-[[education.courses]]
-  course = "BSc in Artificial Intelligence"
-  institution = "Massachusetts Institute of Technology"
+  course = "MSc in Clinical Psychology"
+  institution = "University of Padova"
   year = 2008
+
+[[education.courses]]
+  course = "BSc in Psychology"
+  institution = "University of Padova"
+  year = 2006
  
 +++
 
 # Biography
 
-Lena Smith is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate. 
+Proficient mathematical learning represents a key aspect of academic achievement, and it is also an important skill for a competitive workforce. My research focuses on understanding the cognitive mechanisms involved in the acquisition of numerical skills in typically and atypically developing individuals. I have been implementing different research methods to explore basic numerical representations in preschool and primary school children and how these representations relate to mathematical learning. I am particularly interested in how young children learn the numerical meaning of number words and Arabic digits (i.e., symbol-grounding).
