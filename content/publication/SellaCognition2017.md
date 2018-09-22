@@ -1,6 +1,6 @@
 +++
 title = "Preschool children use space, rather than counting, to infer the numerical magnitude of digits: Evidence for a spatial mapping principle"
-date = 2015-09-01T00:00:00
+date = 2017-09-01T00:00:00
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
@@ -29,7 +29,7 @@ abstract_short = ""
 image_preview = ""
 
 # Is this a selected publication? (true/false)
-selected = false
+selected = True
 
 # Projects (optional).
 #   Associate this publication with one or more of your projects.
@@ -58,7 +58,7 @@ url_dataset = "https://ars.els-cdn.com/content/image/1-s2.0-S001002771630244X-mm
 # url_custom = [{name = "Custom Link", url = "http://example.org"}]
 
 # Digital Object Identifier (DOI)
-doi = ""
+doi = "https://doi.org/10.1016/j.cognition.2016.10.010"
 
 # Does this page contain LaTeX math? (true/false)
 math = true
