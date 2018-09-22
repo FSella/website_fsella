@@ -16,7 +16,6 @@ weight = 40
 #  Filtering example: `tags_include = ["hugo", "academic"]`
 tags_include = []
 tags_exclude = []
-categories = []
 
 # Number of posts to list.
 count = 5
