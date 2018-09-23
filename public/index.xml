@@ -134,6 +134,26 @@ ggplot(data = PlantGrowth, aes(y=weight, x=group, width=0.3)) +
     </item>
     
     <item>
+      <title></title>
+      <link>/publication/sellajephpp2018/</link>
+      <pubDate>Thu, 01 Sep 2016 00:00:00 +0100</pubDate>
+      
+      <guid>/publication/sellajephpp2018/</guid>
+      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basic and Advanced Numerical Performances Relate to Mathematical Expertise but Are Fully Mediated by Visuospatial Skills</title>
+      <link>/publication/sellajeplmc2016/</link>
+      <pubDate>Thu, 01 Sep 2016 00:00:00 +0100</pubDate>
+      
+      <guid>/publication/sellajeplmc2016/</guid>
+      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Spontaneous non-verbal counting in toddlers</title>
       <link>/publication/selladevsci2016/</link>
       <pubDate>Thu, 01 Sep 2016 00:00:00 +0100</pubDate>

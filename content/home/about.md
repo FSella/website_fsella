@@ -33,6 +33,6 @@ weight = 5
  
 +++
 
-# Research interest
+# Research interests
 
 Proficient mathematical learning represents a key aspect of academic achievement, and it is also an important skill for a competitive workforce. My research focuses on understanding the cognitive mechanisms involved in the acquisition of numerical skills in typically and atypically developing individuals. I have been implementing different research methods to explore basic numerical representations in preschool and primary school children and how these representations relate to mathematical learning. I am particularly interested in how young children learn the numerical meaning of number words and Arabic digits (i.e., symbol-grounding).
