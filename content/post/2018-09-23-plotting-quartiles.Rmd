@@ -10,7 +10,11 @@ header:
   image: ''
 ---
 
-I have found extremely useful to plot quartiles using this formula
+Boxplots are one of the best way to represent distrbutions. Here, below you can find some
+code to create a costum boxplot be determing the pecentiles of the distribution that wiskers and box represent. In this specific example, I will plot the quartiles of the distribution.
+
+First, a fucntion to extract quartiles (I took this somewhere from internet).
+
 
 ```{r}
 # plot ordinality per triplet
