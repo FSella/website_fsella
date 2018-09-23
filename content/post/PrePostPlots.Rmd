@@ -1,0 +1,39 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r Generate data frame, echo=TRUE, results='markup'}
+
+# Libraries
+library('MASS')
+library(reshape2)
+
+# Number of participants
+samples <- 100
+
+# Correlation between pre-test and post-test scores
+r = 0.8
+
+df <- data.frame(round(mvrnorm(n=samples, mu=c(100, 100), Sigma=matrix(c(15^2, r, r, 15^2), nrow=2), empirical=TRUE)))
+
+names(df) <- c("Pretest", "Posttest")
+
+df$Subject <- as.factor(1:100)
+
+df$Group <- as.factor(rep(c("Control", "Training"), each=samples/2))
+
+head(df)
+
+# Long format
+df_long <- melt(df, id.vars=c("Subject", "Group"), variable.name = "Session", value.name = "Score")
+
+# Simulating improvement
+impr_control <- round(rnorm(n = samples/2, mean = 3, sd = 1))
+impr_training <- round(rnorm(n = samples/2, mean = 6, sd = 1))
+
+# Add improvments
+df_long$Score[df_long$Session == "Posttest"] <- df_long$Score[df_long$Session == "Posttest"] + c(impr_control, impr_training) 
+
+
+```
