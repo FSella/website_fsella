@@ -1,5 +1,5 @@
 +++
-title = ""
+title = "Who Gains More: Experts or Novices? The Benefits of Interaction under Numerical Uncertainty"
 date = 2016-09-01T00:00:00
 draft = false
 
@@ -45,7 +45,7 @@ tags = []
 # Links (optional).
 url_pdf = "http://psycnet.apa.org/record/2018-36319-001"
 url_preprint = "https://osf.io/wnzhm/?view_only=f92fa71c4a88452fb32388b92c6b94f6"
-url_code = "https://osf.io/wnzhm/?view_only=f92fa71c4a88452fb32388b92c6b94f6"
+#url_code = "https://osf.io/wnzhm/?view_only=f92fa71c4a88452fb32388b92c6b94f6"
 url_dataset = "https://osf.io/wnzhm/?view_only=f92fa71c4a88452fb32388b92c6b94f6"
 #url_project = ""
 #url_slides = ""
