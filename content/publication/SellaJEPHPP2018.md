@@ -1,10 +1,10 @@
 +++
 title = "Who Gains More: Experts or Novices? The Benefits of Interaction under Numerical Uncertainty"
-date = 2016-09-01T00:00:00
+date = 2018-09-01T00:00:00
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["Francesco Sella, Blakey Robert, Dan Bang, Bahador Bahrami, Roi Cohen Kadosh"]
+authors = ["Francesco Sella, Robert Blakey, Dan Bang, Bahador Bahrami, Roi Cohen Kadosh"]
 
 # Publication type.
 # Legend:
