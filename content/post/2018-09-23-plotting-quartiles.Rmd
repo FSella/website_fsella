@@ -16,7 +16,7 @@ code to create a costum boxplot be determing the pecentiles of the distribution 
 First, a fucntion to extract quartiles (I took this somewhere from internet).
 
 
-```{r}
+```{r, results='asis', echo=TRUE}
 # plot ordinality per triplet
 pd = position_dodge(0.4)
 plot_ord_dos <-
