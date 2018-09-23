@@ -110,7 +110,7 @@ ggplot(data = PlantGrowth, aes(y=weight, x=group, width=0.3)) +
     </item>
     
     <item>
-      <title>Preschool children use space, rather than counting, to infer the numerical magnitude of digits: Evidence for a spatial mapping principle</title>
+      <title>Spontaneous non-verbal counting in toddlers</title>
       <link>/publication/selladevsci2016/</link>
       <pubDate>Fri, 01 Sep 2017 00:00:00 +0100</pubDate>
       
