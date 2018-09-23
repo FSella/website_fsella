@@ -18,7 +18,8 @@
       <pubDate>Sun, 23 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/plotting-quartiles/</guid>
-      <description>I have found extremely useful to plot quartiles using this formula</description>
+      <description>Boxplots are one of the best ways to represent distributions. Below, there is some code to create a costum boxplot by determining the pecentiles of the distribution that the wiskers and the box represent. In the example, I plotted the quartiles of the distribution of weight as a function of group from the dataset PlantGrowth.
+First, we create a function to extract quartiles. The values in probs represent the percentiles of the distributions, which then will be plotted.</description>
     </item>
     
     <item>

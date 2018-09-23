@@ -12,4 +12,53 @@ header:
 
 
 
-<p>I have found extremely useful to plot quartiles using this formula</p>
+<p>Boxplots are one of the best ways to represent distributions. Below, there is some code to create a costum boxplot by determining the pecentiles of the distribution that the wiskers and the box represent. In the example, I plotted the quartiles of the distribution of weight as a function of group from the dataset <em>PlantGrowth</em>.</p>
+<p>First, we create a function to extract quartiles. The values in <strong>probs</strong> represent the percentiles of the distributions, which then will be plotted. Then, we examine the quartiles of the distribution of weight for each group (i.e., ctrl, trt1, trt2).</p>
+<pre class="r"><code># Create the function quartiles
+quartiles &lt;- function(x) {
+  r &lt;- quantile(x, probs=c(0, 0.25, 0.5, 0.75, 1))
+  names(r) &lt;- c(&quot;ymin&quot;, &quot;lower&quot;, &quot;middle&quot;, &quot;upper&quot;, &quot;ymax&quot;)
+  r
+}
+
+# Quartiles of weight per group
+by(PlantGrowth$weight, INDICES = PlantGrowth$group, FUN = quartiles)</code></pre>
+<pre><code>## PlantGrowth$group: ctrl
+##   ymin  lower middle  upper   ymax 
+## 4.1700 4.5500 5.1550 5.2925 6.1100 
+## -------------------------------------------------------- 
+## PlantGrowth$group: trt1
+##   ymin  lower middle  upper   ymax 
+## 3.5900 4.2075 4.5500 4.8700 6.0300 
+## -------------------------------------------------------- 
+## PlantGrowth$group: trt2
+##   ymin  lower middle  upper   ymax 
+## 4.9200 5.2675 5.4350 5.7350 6.3100</code></pre>
+<p>Finally, the boxplot using ggplot. I also added the diamond shape to represent the mean and the individual values jittered around the boxplot.</p>
+<pre class="r"><code># Libraries
+library(ggplot2)
+
+# Plot
+ggplot(data = PlantGrowth, aes(y=weight, x=group, width=0.3)) +
+  stat_summary(fun.data = quartiles, geom=&quot;boxplot&quot;, size=0.7, fill=&quot;white&quot;) +
+  stat_summary(fun.y = mean, geom = &quot;point&quot;, shape=18, size=5) +
+  geom_jitter(width = 0.1, height = 0, alpha=0.3, size=3) +
+  theme_classic(base_size = 18) +
+  guides(fill=guide_legend(title=&quot;Triplet&quot;)) +
+  theme(axis.title.x = element_text(face=&quot;bold&quot;),
+        axis.title.y = element_text(face=&quot;bold&quot;),
+        legend.title = element_text(face=&quot;bold&quot;),
+        axis.text.x = element_text(colour = &quot;Black&quot;),
+        axis.text.y = element_text(colour = &quot;Black&quot;),
+        axis.ticks.x = element_line(colour = &quot;Black&quot;, size = 0.2),
+        axis.ticks.y = element_line(colour = &quot;Black&quot;, size = 0.2),
+        axis.line.x = element_line(size = 0.2),
+        axis.line.y = element_line(size = 0.2),
+        panel.border = element_rect(size = 0.2,color=&quot;black&quot;, fill=NA),
+        plot.title = element_text(face=&quot;bold&quot;, hjust = 0.5),
+        panel.grid.major = element_line(size = (0.1), colour=&quot;grey&quot;),
+        panel.grid.minor = element_blank()) +
+  xlab(&quot;Group&quot;) +
+  ylab(&quot;Weight&quot;) +
+  ggtitle(&quot;Boxplot quartiles&quot;)</code></pre>
+<p><img src="/post/2018-09-23-plotting-quartiles_files/figure-html/plot-1.png" width="672" /></p>

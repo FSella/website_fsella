@@ -10,40 +10,53 @@ header:
   image: ''
 ---
 
-Boxplots are one of the best way to represent distrbutions. Here, below you can find some
-code to create a costum boxplot be determing the pecentiles of the distribution that wiskers and box represent. In this specific example, I will plot the quartiles of the distribution.
+Boxplots are one of the best ways to represent distributions. Below, there is some
+code to create a costum boxplot by determining the pecentiles of the distribution that the wiskers and the box represent. In the example, I plotted the quartiles of the distribution of weight as a function of group from the dataset *PlantGrowth*.
 
-First, a fucntion to extract quartiles (I took this somewhere from internet).
+First, we create a function to extract quartiles. The values in **probs** represent the percentiles of the distributions, which then will be plotted. Then, we examine the quartiles of the distribution of weight for each group (i.e., ctrl, trt1, trt2).
 
+```{r function quartiles, echo=TRUE, results='markup'}
+# Create the function quartiles
+quartiles <- function(x) {
+  r <- quantile(x, probs=c(0, 0.25, 0.5, 0.75, 1))
+  names(r) <- c("ymin", "lower", "middle", "upper", "ymax")
+  r
+}
 
-```{r, results='asis', echo=TRUE}
-# plot ordinality per triplet
-pd = position_dodge(0.4)
-plot_ord_dos <-
-ggplot(data = df_dos_ord_trip, aes(y=ordinality, x=Triplet, width=0.3)) +
-  #geom_hline(yintercept = 0.5, linetype=2, size=0.4) +
-  stat_summary(fun.data = quartiles, geom="boxplot", position = pd, size=0.4, fill=greys[1]) +
-  stat_summary(fun.y = mean, geom = "point", shape=5, size=2, position = pd) +
-  theme_classic(base_size = 12) +
+# Quartiles of weight per group
+by(PlantGrowth$weight, INDICES = PlantGrowth$group, FUN = quartiles)
+
+```
+
+Finally, the boxplot using ggplot. I also added the diamond shape to represent the mean and the individual values jittered around the boxplot. 
+
+```{r plot, results='markup', echo=TRUE, warning=FALSE}
+
+# Libraries
+library(ggplot2)
+
+# Plot
+ggplot(data = PlantGrowth, aes(y=weight, x=group, width=0.3)) +
+  stat_summary(fun.data = quartiles, geom="boxplot", size=0.7, fill="white") +
+  stat_summary(fun.y = mean, geom = "point", shape=18, size=5) +
+  geom_jitter(width = 0.1, height = 0, alpha=0.3, size=3) +
+  theme_classic(base_size = 18) +
   guides(fill=guide_legend(title="Triplet")) +
   theme(axis.title.x = element_text(face="bold"),
         axis.title.y = element_text(face="bold"),
         legend.title = element_text(face="bold"),
-        strip.text = element_text(face="bold"),
         axis.text.x = element_text(colour = "Black"),
         axis.text.y = element_text(colour = "Black"),
         axis.ticks.x = element_line(colour = "Black", size = 0.2),
         axis.ticks.y = element_line(colour = "Black", size = 0.2),
         axis.line.x = element_line(size = 0.2),
         axis.line.y = element_line(size = 0.2),
-        strip.background = element_rect(size = 0.2),
         panel.border = element_rect(size = 0.2,color="black", fill=NA),
         plot.title = element_text(face="bold", hjust = 0.5),
-        legend.position = "right",#c(0.2,0.2),
-        legend.box.background = element_rect(colour = "black"),
         panel.grid.major = element_line(size = (0.1), colour="grey"),
         panel.grid.minor = element_blank()) +
-  scale_y_continuous(limits = c(-0.02,1.02), breaks = seq(0,1,by = 0.25)) +
-  xlab("Triplet") +
-  ylab("Ordinality")  
+  xlab("Group") +
+  ylab("Weight") +
+  ggtitle("Boxplot quartiles")
+
 ```
