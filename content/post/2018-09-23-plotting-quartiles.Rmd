@@ -12,3 +12,34 @@ header:
 
 I have found extremely useful to plot quartiles using this formula
 
+```{r}
+# plot ordinality per triplet
+pd = position_dodge(0.4)
+plot_ord_dos <-
+ggplot(data = df_dos_ord_trip, aes(y=ordinality, x=Triplet, width=0.3)) +
+  #geom_hline(yintercept = 0.5, linetype=2, size=0.4) +
+  stat_summary(fun.data = quartiles, geom="boxplot", position = pd, size=0.4, fill=greys[1]) +
+  stat_summary(fun.y = mean, geom = "point", shape=5, size=2, position = pd) +
+  theme_classic(base_size = 12) +
+  guides(fill=guide_legend(title="Triplet")) +
+  theme(axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"),
+        legend.title = element_text(face="bold"),
+        strip.text = element_text(face="bold"),
+        axis.text.x = element_text(colour = "Black"),
+        axis.text.y = element_text(colour = "Black"),
+        axis.ticks.x = element_line(colour = "Black", size = 0.2),
+        axis.ticks.y = element_line(colour = "Black", size = 0.2),
+        axis.line.x = element_line(size = 0.2),
+        axis.line.y = element_line(size = 0.2),
+        strip.background = element_rect(size = 0.2),
+        panel.border = element_rect(size = 0.2,color="black", fill=NA),
+        plot.title = element_text(face="bold", hjust = 0.5),
+        legend.position = "right",#c(0.2,0.2),
+        legend.box.background = element_rect(colour = "black"),
+        panel.grid.major = element_line(size = (0.1), colour="grey"),
+        panel.grid.minor = element_blank()) +
+  scale_y_continuous(limits = c(-0.02,1.02), breaks = seq(0,1,by = 0.25)) +
+  xlab("Triplet") +
+  ylab("Ordinality")  
+```
