@@ -1,0 +1,14 @@
+---
+title: Boxplot with quartiles
+author: FS
+date: '2018-09-23'
+slug: plotting-quartiles
+categories: []
+tags: []
+header:
+  caption: ''
+  image: ''
+---
+
+I havve found extremely useful to plot quartiles using this formula
+
