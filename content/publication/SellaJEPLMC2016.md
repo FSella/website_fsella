@@ -1,10 +1,10 @@
 +++
-title = "Spontaneous non-verbal counting in toddlers"
+title = "Basic and Advanced Numerical Performances Relate to Mathematical Expertise but Are Fully Mediated by Visuospatial Skills"
 date = 2016-09-01T00:00:00
 draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["Francesco Sella, Ilaria Berteletti, Daniela Lucangeli, Marco Zorzi"]
+authors = ["Francesco Sella, Elie Sader, Simon Lolliot, Roi Cohen Kadosh"]
 
 # Publication type.
 # Legend:
@@ -18,8 +18,8 @@ authors = ["Francesco Sella, Ilaria Berteletti, Daniela Lucangeli, Marco Zorzi"]
 publication_types = ["2"]
 
 # Publication name and optional abbreviated version.
-publication = "In *Developmental Science*."
-publication_short = "In *Developmental Science*"
+publication = "In *Journal of Experimental Psychology: Learning, Memory, and Cognition*."
+publication_short = "In *Journal of Experimental Psychology: Learning, Memory, and Cognition*"
 
 # Abstract and optional shortened version.
 abstract = ""
@@ -43,7 +43,7 @@ projects = []
 tags = []
 
 # Links (optional).
-url_pdf = "https://onlinelibrary.wiley.com/doi/abs/10.1111/desc.12299"
+url_pdf = "http://www.apa.org/pubs/journals/features/xlm-xlm0000249.pdf"
 #url_preprint = ""
 #url_code = ""
 #url_dataset = ""
@@ -58,7 +58,7 @@ url_pdf = "https://onlinelibrary.wiley.com/doi/abs/10.1111/desc.12299"
 # url_custom = [{name = "Custom Link", url = "http://example.org"}]
 
 # Digital Object Identifier (DOI)
-doi = "https://doi.org/10.1111/desc.12299"
+doi = "10.1037/xlm0000249"
 
 # Does this page contain LaTeX math? (true/false)
 math = true
