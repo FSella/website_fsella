@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 2.4.0">
-  <meta name="generator" content="Hugo 0.53" />
+  <meta name="generator" content="Hugo 0.48" />
   <meta name="author" content="Francesco Sella">
 
   
@@ -321,10 +321,7 @@ First, we create a function to extract quartiles. The values in probs represent 
 
 
     <div class="article-style" itemprop="articleBody">
-      
-
-
-<p>Boxplots are one of the best ways to represent distributions. Below, there is some code to create a costum boxplot by determining the pecentiles of the distribution that the wiskers and the box represent. In the example, I plotted the quartiles of the distribution of weight as a function of group from the dataset <em>PlantGrowth</em>.</p>
+      <p>Boxplots are one of the best ways to represent distributions. Below, there is some code to create a costum boxplot by determining the pecentiles of the distribution that the wiskers and the box represent. In the example, I plotted the quartiles of the distribution of weight as a function of group from the dataset <em>PlantGrowth</em>.</p>
 <p>First, we create a function to extract quartiles. The values in <strong>probs</strong> represent the percentiles of the distributions, which then will be plotted. Then, we examine the quartiles of the distribution of weight for each group (i.e., ctrl, trt1, trt2).</p>
 <pre class="r"><code># Create the function quartiles
 quartiles &lt;- function(x) {

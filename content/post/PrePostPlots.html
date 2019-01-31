@@ -25,12 +25,12 @@ df$Group &lt;- as.factor(rep(c(&quot;Control&quot;, &quot;Training&quot;), each=
 
 head(df)</code></pre>
 <pre><code>##   Pretest Posttest Subject   Group
-## 1      81       87       1 Control
-## 2     105       84       2 Control
-## 3      85      100       3 Control
-## 4      89      102       4 Control
-## 5      87      114       5 Control
-## 6     105      120       6 Control</code></pre>
+## 1      91       98       1 Control
+## 2      93       95       2 Control
+## 3     118      115       3 Control
+## 4     108       85       4 Control
+## 5      93      102       5 Control
+## 6     110       73       6 Control</code></pre>
 <pre class="r"><code># Long format
 df_long &lt;- melt(df, id.vars=c(&quot;Subject&quot;, &quot;Group&quot;), variable.name = &quot;Session&quot;, value.name = &quot;Score&quot;)
 
