@@ -15,7 +15,7 @@
   
     
   
-  <meta name="description" content="A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extract the BF and report it in a scientific format.
+  <meta name="description" content="A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and reports it in a scientific format.
 # A fucntion to extract and report Bayes FactorsBF_scirep_str &lt;- function(model) {output &lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)output &lt;- sub(&quot;e&quot;, &quot;x10&lt;sup&gt;&quot;, output) #Replace e with 10^output &lt;- sub(&quot;\\&#43;0?">
 
   
@@ -90,7 +90,7 @@
   <meta property="og:site_name" content="Francesco Sella">
   <meta property="og:url" content="/post/reporting-bf/">
   <meta property="og:title" content="Reporting Bayes factor in scientific format | Francesco Sella">
-  <meta property="og:description" content="A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extract the BF and report it in a scientific format.
+  <meta property="og:description" content="A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and reports it in a scientific format.
 # A fucntion to extract and report Bayes FactorsBF_scirep_str &lt;- function(model) {output &lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)output &lt;- sub(&quot;e&quot;, &quot;x10&lt;sup&gt;&quot;, output) #Replace e with 10^output &lt;- sub(&quot;\\&#43;0?">
   
   
@@ -321,7 +321,7 @@
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extract the BF and report it in a scientific format.</p>
+      <p>A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and reports it in a scientific format.</p>
 <pre class="r"><code># A fucntion to extract and report Bayes Factors
 BF_scirep_str &lt;- function(model) {
   output &lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)

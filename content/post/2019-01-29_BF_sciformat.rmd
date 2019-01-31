@@ -11,7 +11,7 @@ header:
 ---
 
 A quick function to extract and report Bayes factors in a scientific format when running regression analysis.
-The function takes the output of regressionBF (Package BayesFactor: Morey & Rouder, 2018), extract the BF and report it in a scientific format.
+The function takes the output of regressionBF (Package BayesFactor: Morey & Rouder, 2018), extracts the BF and reports it in a scientific format.
 
 ```{r function quartiles, echo=TRUE, results='markup'}
 
