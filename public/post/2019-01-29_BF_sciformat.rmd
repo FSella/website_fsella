@@ -49,4 +49,4 @@ bf_out <- BF_scirep_str(model = model["hp + wt"])
 
 ```
 
-There was extreme evidence for the model including the effect of hp and wt (BF=`r bf_out`).
+There was extreme evidence for the model including the effect of hp and wt, BF=`r bf_out`.
