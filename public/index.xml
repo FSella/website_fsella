@@ -11,6 +11,51 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Reporting Bayes factor in scientific format</title>
+      <link>/post/reporting-bf/</link>
+      <pubDate>Tue, 29 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/reporting-bf/</guid>
+      <description>&lt;p&gt;A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp;amp; Rouder, 2018), extract the BF and report it in a scientific format.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# A fucntion to extract and report Bayes Factors
+BF_scirep_str &amp;lt;- function(model) {
+  output &amp;lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)
+  output &amp;lt;- sub(&amp;quot;e&amp;quot;, &amp;quot;x10&amp;lt;sup&amp;gt;&amp;quot;, output) #Replace e with 10^
+  output &amp;lt;- sub(&amp;quot;\\+0?&amp;quot;, &amp;quot;&amp;quot;, output) #Remove + symbol and leading zeros on expoent, if &amp;gt; 1
+  output &amp;lt;- sub(&amp;quot;-0?&amp;quot;, &amp;quot;-&amp;quot;, output) #Leaves - symbol but removes leading zeros on expoent, if &amp;lt; 1
+  output
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;An example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Library
+library(BayesFactor)
+
+# Regression model
+model &amp;lt;- regressionBF(mpg ~ hp + wt, data = mtcars)
+
+model&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Bayes factor analysis
+## --------------
+## [1] hp      : 56963.84  ±0.01%
+## [2] wt      : 45657981  ±0.01%
+## [3] hp + wt : 788547604 ±0%
+## 
+## Against denominator:
+##   Intercept only 
+## ---
+## Bayes factor type: BFlinearModel, JZS&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# BF for the model with only hp
+BF_scirep_str(model = model[&amp;quot;hp&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;5.7x10&amp;lt;sup&amp;gt;4&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# BF for the model with only wt
+BF_scirep_str(model = model[&amp;quot;wt&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;4.57x10&amp;lt;sup&amp;gt;7&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# BF for the model with both hp and wt
+BF_scirep_str(model = model[&amp;quot;hp + wt&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;7.89x10&amp;lt;sup&amp;gt;8&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Boxplot with quartiles</title>
       <link>/post/plotting-quartiles/</link>
       <pubDate>Sun, 23 Sep 2018 00:00:00 +0000</pubDate>

@@ -13,6 +13,16 @@
     
     
     <item>
+      <title>Reporting Bayes factor in scientific format</title>
+      <link>/post/reporting-bf/</link>
+      <pubDate>Tue, 29 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/reporting-bf/</guid>
+      <description>A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp;amp; Rouder, 2018), extract the BF and report it in a scientific format.
+# A fucntion to extract and report Bayes FactorsBF_scirep_str &amp;lt;- function(model) {output &amp;lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)output &amp;lt;- sub(&amp;quot;e&amp;quot;, &amp;quot;x10&amp;lt;sup&amp;gt;&amp;quot;, output) #Replace e with 10^output &amp;lt;- sub(&amp;quot;\\+0?</description>
+    </item>
+    
+    <item>
       <title>Boxplot with quartiles</title>
       <link>/post/plotting-quartiles/</link>
       <pubDate>Sun, 23 Sep 2018 00:00:00 +0000</pubDate>

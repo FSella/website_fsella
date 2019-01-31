@@ -1,0 +1,50 @@
+---
+title: Reporting Bayes factor in scientific format
+author: FS
+date: '2019-01-29'
+slug: reporting-bf
+categories: [R]
+tags: []
+header:
+  caption: ''
+  image: ''
+---
+
+
+
+<p>A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extract the BF and report it in a scientific format.</p>
+<pre class="r"><code># A fucntion to extract and report Bayes Factors
+BF_scirep_str &lt;- function(model) {
+  output &lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)
+  output &lt;- sub(&quot;e&quot;, &quot;x10&lt;sup&gt;&quot;, output) #Replace e with 10^
+  output &lt;- sub(&quot;\\+0?&quot;, &quot;&quot;, output) #Remove + symbol and leading zeros on expoent, if &gt; 1
+  output &lt;- sub(&quot;-0?&quot;, &quot;-&quot;, output) #Leaves - symbol but removes leading zeros on expoent, if &lt; 1
+  output
+}</code></pre>
+<p>An example:</p>
+<pre class="r"><code># Library
+library(BayesFactor)
+
+# Regression model
+model &lt;- regressionBF(mpg ~ hp + wt, data = mtcars)
+
+model</code></pre>
+<pre><code>## Bayes factor analysis
+## --------------
+## [1] hp      : 56963.84  ±0.01%
+## [2] wt      : 45657981  ±0.01%
+## [3] hp + wt : 788547604 ±0%
+## 
+## Against denominator:
+##   Intercept only 
+## ---
+## Bayes factor type: BFlinearModel, JZS</code></pre>
+<pre class="r"><code># BF for the model with only hp
+BF_scirep_str(model = model[&quot;hp&quot;])</code></pre>
+<pre><code>## [1] &quot;5.7x10&lt;sup&gt;4&quot;</code></pre>
+<pre class="r"><code># BF for the model with only wt
+BF_scirep_str(model = model[&quot;wt&quot;])</code></pre>
+<pre><code>## [1] &quot;4.57x10&lt;sup&gt;7&quot;</code></pre>
+<pre class="r"><code># BF for the model with both hp and wt
+BF_scirep_str(model = model[&quot;hp + wt&quot;])</code></pre>
+<pre><code>## [1] &quot;7.89x10&lt;sup&gt;8&quot;</code></pre>

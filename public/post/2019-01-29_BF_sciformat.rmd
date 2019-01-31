@@ -1,0 +1,50 @@
+---
+title: Reporting Bayes factor in scientific format
+author: FS
+date: '2019-01-29'
+slug: reporting-bf
+categories: [R]
+tags: []
+header:
+  caption: ''
+  image: ''
+---
+
+A quick function to extract and report Bayes factors in a scientific format when running regression analysis.
+The function takes the output of regressionBF (Package BayesFactor: Morey & Rouder, 2018), extract the BF and report it in a scientific format.
+
+```{r function quartiles, echo=TRUE, results='markup'}
+
+# A fucntion to extract and report Bayes Factors
+BF_scirep_str <- function(model) {
+  output <- formatC(round(extractBF(model, onlybf = T)), digits = 3)
+  output <- sub("e", "x10<sup>", output) #Replace e with 10^
+  output <- sub("\\+0?", "", output) #Remove + symbol and leading zeros on expoent, if > 1
+  output <- sub("-0?", "-", output) #Leaves - symbol but removes leading zeros on expoent, if < 1
+  output
+}
+
+```
+
+An example:
+
+```{r Example, results='markup', echo=TRUE, warning=FALSE, message=FALSE}
+
+# Library
+library(BayesFactor)
+
+# Regression model
+model <- regressionBF(mpg ~ hp + wt, data = mtcars)
+
+model
+
+# BF for the model with only hp
+BF_scirep_str(model = model["hp"])
+
+# BF for the model with only wt
+BF_scirep_str(model = model["wt"])
+
+# BF for the model with both hp and wt
+BF_scirep_str(model = model["hp + wt"])
+
+```
