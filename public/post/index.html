@@ -295,69 +295,6 @@ First, we create a function to extract quartiles. The values in probs represent 
 
     
   
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Francesco Sella">
-  </span>
-  
-
-  <span class="article-date">
-    
-    <meta content="" itemprop="datePublished">
-    <time datetime="" itemprop="dateModified">
-      Jan 1, 0001
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Francesco Sella">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    1 min read
-  </span>
-  
-
-  
-  
-
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/prepostplots/" itemprop="url">Untitled</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    # Librarieslibrary(&#39;MASS&#39;)library(reshape2)## Warning: package &#39;reshape2&#39; was built under R version 3.5.1# Number of participantssamples &lt;- 100# Correlation between pre-test and post-test scoresr = 0.8df &lt;- data.frame(round(mvrnorm(n=samples, mu=c(100, 100), Sigma=matrix(c(15^2, r, r, 15^2), nrow=2), empirical=TRUE)))names(df) &lt;- c(&quot;Pretest&quot;, &quot;Posttest&quot;)df$Subject &lt;- as.factor(1:100)df$Group &lt;- as.factor(rep(c(&quot;Control&quot;, &quot;Training&quot;), each=samples/2))head(df)## Pretest Posttest Subject Group## 1 91 98 1 Control## 2 93 95 2 Control## 3 118 115 3 Control## 4 108 85 4 Control## 5 93 102 5 Control## 6 110 73 6 Control# Long formatdf_long &lt;- melt(df, id.
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/prepostplots/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
-  
 
   
 

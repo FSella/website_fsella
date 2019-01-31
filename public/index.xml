@@ -100,6 +100,16 @@ ggplot(data = PlantGrowth, aes(y=weight, x=group, width=0.3)) +
     </item>
     
     <item>
+      <title>Spatial order relates to the exact numerical magnitude of digits in young children</title>
+      <link>/publication/sellajecp2019/</link>
+      <pubDate>Sat, 01 Sep 2018 00:00:00 +0100</pubDate>
+      
+      <guid>/publication/sellajecp2019/</guid>
+      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Who Gains More: Experts or Novices? The Benefits of Interaction under Numerical Uncertainty</title>
       <link>/publication/sellajephpp2018/</link>
       <pubDate>Sat, 01 Sep 2018 00:00:00 +0100</pubDate>
