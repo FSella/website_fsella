@@ -11,12 +11,12 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Reporting Bayes factor</title>
+      <title>Reporting Bayes factors from regression analysis</title>
       <link>/post/reporting-bf/</link>
       <pubDate>Tue, 29 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/reporting-bf/</guid>
-      <description>&lt;p&gt;A quick function to extract and report large Bayes factors as power of 10 when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp;amp; Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.&lt;/p&gt;
+      <description>&lt;p&gt;A quick function to extract and report large Bayes factors as a power of 10 when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp;amp; Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# A fucntion to extract and report Bayes Factors
 BF_scirep_str &amp;lt;- function(model) {
   output &amp;lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)
@@ -50,8 +50,8 @@ BF_scirep_str(model = model[&amp;quot;hp&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
 BF_scirep_str(model = model[&amp;quot;wt&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;4.57x10&amp;lt;sup&amp;gt;7&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# BF for the model with both hp and wt
-BF_scirep_str(model = model[&amp;quot;hp + wt&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;7.89x10&amp;lt;sup&amp;gt;8&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+bf_out &amp;lt;- BF_scirep_str(model = model[&amp;quot;hp + wt&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There was extreme evidence for the model including the effect of hp and wt (BF=7.89x10&lt;sup&gt;8).&lt;/p&gt;
 </description>
     </item>
     

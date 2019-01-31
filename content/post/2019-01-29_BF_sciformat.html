@@ -1,5 +1,5 @@
 ---
-title: Reporting Bayes factor
+title: Reporting Bayes factors from regression analysis
 author: FS
 date: '2019-01-29'
 slug: reporting-bf
@@ -12,7 +12,7 @@ header:
 
 
 
-<p>A quick function to extract and report large Bayes factors as power of 10 when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.</p>
+<p>A quick function to extract and report large Bayes factors as a power of 10 when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.</p>
 <pre class="r"><code># A fucntion to extract and report Bayes Factors
 BF_scirep_str &lt;- function(model) {
   output &lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)
@@ -46,5 +46,5 @@ BF_scirep_str(model = model[&quot;hp&quot;])</code></pre>
 BF_scirep_str(model = model[&quot;wt&quot;])</code></pre>
 <pre><code>## [1] &quot;4.57x10&lt;sup&gt;7&quot;</code></pre>
 <pre class="r"><code># BF for the model with both hp and wt
-BF_scirep_str(model = model[&quot;hp + wt&quot;])</code></pre>
-<pre><code>## [1] &quot;7.89x10&lt;sup&gt;8&quot;</code></pre>
+bf_out &lt;- BF_scirep_str(model = model[&quot;hp + wt&quot;])</code></pre>
+<p>There was extreme evidence for the model including the effect of hp and wt (BF=7.89x10<sup>8).</p>

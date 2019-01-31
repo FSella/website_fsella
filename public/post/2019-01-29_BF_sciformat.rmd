@@ -1,5 +1,5 @@
 ---
-title: Reporting Bayes factor
+title: Reporting Bayes factors from regression analysis
 author: FS
 date: '2019-01-29'
 slug: reporting-bf
@@ -10,7 +10,7 @@ header:
   image: ''
 ---
 
-A quick function to extract and report large Bayes factors as power of 10 when running regression analysis.
+A quick function to extract and report large Bayes factors as a power of 10 when running regression analysis.
 The function takes the output of regressionBF (Package BayesFactor: Morey & Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.
 
 ```{r function quartiles, echo=TRUE, results='markup'}
@@ -45,6 +45,8 @@ BF_scirep_str(model = model["hp"])
 BF_scirep_str(model = model["wt"])
 
 # BF for the model with both hp and wt
-BF_scirep_str(model = model["hp + wt"])
+bf_out <- BF_scirep_str(model = model["hp + wt"])
 
 ```
+
+There was extreme evidence for the model including the effect of hp and wt (BF=`r bf_out`).

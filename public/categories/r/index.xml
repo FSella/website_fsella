@@ -13,12 +13,12 @@
     
     
     <item>
-      <title>Reporting Bayes factor</title>
+      <title>Reporting Bayes factors from regression analysis</title>
       <link>/post/reporting-bf/</link>
       <pubDate>Tue, 29 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/reporting-bf/</guid>
-      <description>A quick function to extract and report large Bayes factors as power of 10 when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp;amp; Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.
+      <description>A quick function to extract and report large Bayes factors as a power of 10 when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp;amp; Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.
 # A fucntion to extract and report Bayes FactorsBF_scirep_str &amp;lt;- function(model) {output &amp;lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)output &amp;lt;- sub(&amp;quot;e&amp;quot;, &amp;quot;x10&amp;lt;sup&amp;gt;&amp;quot;, output) #Replace e with 10^output &amp;lt;- sub(&amp;quot;\\+0?</description>
     </item>
     
