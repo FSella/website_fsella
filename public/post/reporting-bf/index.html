@@ -15,7 +15,7 @@
   
     
   
-  <meta name="description" content="A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and reports it in a scientific format.
+  <meta name="description" content="A quick function to extract and report large Bayes factors as power of 10 when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.
 # A fucntion to extract and report Bayes FactorsBF_scirep_str &lt;- function(model) {output &lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)output &lt;- sub(&quot;e&quot;, &quot;x10&lt;sup&gt;&quot;, output) #Replace e with 10^output &lt;- sub(&quot;\\&#43;0?">
 
   
@@ -89,8 +89,8 @@
   
   <meta property="og:site_name" content="Francesco Sella">
   <meta property="og:url" content="/post/reporting-bf/">
-  <meta property="og:title" content="Reporting Bayes factor in scientific format | Francesco Sella">
-  <meta property="og:description" content="A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and reports it in a scientific format.
+  <meta property="og:title" content="Reporting Bayes factor | Francesco Sella">
+  <meta property="og:description" content="A quick function to extract and report large Bayes factors as power of 10 when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.
 # A fucntion to extract and report Bayes FactorsBF_scirep_str &lt;- function(model) {output &lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)output &lt;- sub(&quot;e&quot;, &quot;x10&lt;sup&gt;&quot;, output) #Replace e with 10^output &lt;- sub(&quot;\\&#43;0?">
   
   
@@ -107,7 +107,7 @@
 
   
 
-  <title>Reporting Bayes factor in scientific format | Francesco Sella</title>
+  <title>Reporting Bayes factor | Francesco Sella</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -226,7 +226,7 @@
 
 
   <div class="article-container">
-    <h1 itemprop="name">Reporting Bayes factor in scientific format</h1>
+    <h1 itemprop="name">Reporting Bayes factor</h1>
 
     
 
@@ -279,7 +279,7 @@
   <ul class="share">
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=Reporting%20Bayes%20factor%20in%20scientific%20format&amp;url=%2fpost%2freporting-bf%2f"
+         href="https://twitter.com/intent/tweet?text=Reporting%20Bayes%20factor&amp;url=%2fpost%2freporting-bf%2f"
          target="_blank" rel="noopener">
         <i class="fab fa-twitter"></i>
       </a>
@@ -293,21 +293,21 @@
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=%2fpost%2freporting-bf%2f&amp;title=Reporting%20Bayes%20factor%20in%20scientific%20format"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=%2fpost%2freporting-bf%2f&amp;title=Reporting%20Bayes%20factor"
          target="_blank" rel="noopener">
         <i class="fab fa-linkedin-in"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=%2fpost%2freporting-bf%2f&amp;title=Reporting%20Bayes%20factor%20in%20scientific%20format"
+         href="http://service.weibo.com/share/share.php?url=%2fpost%2freporting-bf%2f&amp;title=Reporting%20Bayes%20factor"
          target="_blank" rel="noopener">
         <i class="fab fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=Reporting%20Bayes%20factor%20in%20scientific%20format&amp;body=%2fpost%2freporting-bf%2f">
+         href="mailto:?subject=Reporting%20Bayes%20factor&amp;body=%2fpost%2freporting-bf%2f">
         <i class="fas fa-envelope"></i>
       </a>
     </li>
@@ -321,7 +321,7 @@
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>A quick function to extract and report Bayes factors in a scientific format when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and reports it in a scientific format.</p>
+      <p>A quick function to extract and report large Bayes factors as power of 10 when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.</p>
 <pre class="r"><code># A fucntion to extract and report Bayes Factors
 BF_scirep_str &lt;- function(model) {
   output &lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)

@@ -1,5 +1,5 @@
 ---
-title: Reporting Bayes factor in scientific format
+title: Reporting Bayes factor
 author: FS
 date: '2019-01-29'
 slug: reporting-bf
@@ -10,8 +10,8 @@ header:
   image: ''
 ---
 
-A quick function to extract and report Bayes factors in a scientific format when running regression analysis.
-The function takes the output of regressionBF (Package BayesFactor: Morey & Rouder, 2018), extracts the BF and reports it in a scientific format.
+A quick function to extract and report large Bayes factors as power of 10 when running regression analysis.
+The function takes the output of regressionBF (Package BayesFactor: Morey & Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.
 
 ```{r function quartiles, echo=TRUE, results='markup'}
 
