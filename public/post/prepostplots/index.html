@@ -15,10 +15,10 @@
   
     
   
-  <meta name="description" content="Lecturer of Developmental Psychology">
+  <meta name="description" content="# Librarieslibrary(&#39;MASS&#39;)library(reshape2)## Warning: package &#39;reshape2&#39; was built under R version 3.5.1# Number of participantssamples &lt;- 100# Correlation between pre-test and post-test scoresr = 0.8df &lt;- data.frame(round(mvrnorm(n=samples, mu=c(100, 100), Sigma=matrix(c(15^2, r, r, 15^2), nrow=2), empirical=TRUE)))names(df) &lt;- c(&quot;Pretest&quot;, &quot;Posttest&quot;)df$Subject &lt;- as.factor(1:100)df$Group &lt;- as.factor(rep(c(&quot;Control&quot;, &quot;Training&quot;), each=samples/2))head(df)## Pretest Posttest Subject Group## 1 81 87 1 Control## 2 105 84 2 Control## 3 85 100 3 Control## 4 89 102 4 Control## 5 87 114 5 Control## 6 105 120 6 Control# Long formatdf_long &lt;- melt(df, id.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/">
+  <link rel="alternate" hreflang="en-us" href="/post/prepostplots/">
 
   
 
@@ -47,6 +47,13 @@
       
     
     
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" crossorigin="anonymous">
+        
+      
+    
 
     
 
@@ -67,36 +74,37 @@
   
 
   
-  <link rel="alternate" href="/post/index.xml" type="application/rss+xml" title="Francesco Sella">
-  <link rel="feed" href="/post/index.xml" type="application/rss+xml" title="Francesco Sella">
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Francesco Sella">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Francesco Sella">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/post/">
+  <link rel="canonical" href="/post/prepostplots/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Francesco Sella">
-  <meta property="og:url" content="/post/">
-  <meta property="og:title" content="Posts | Francesco Sella">
-  <meta property="og:description" content="Lecturer of Developmental Psychology">
+  <meta property="og:url" content="/post/prepostplots/">
+  <meta property="og:title" content="Untitled | Francesco Sella">
+  <meta property="og:description" content="# Librarieslibrary(&#39;MASS&#39;)library(reshape2)## Warning: package &#39;reshape2&#39; was built under R version 3.5.1# Number of participantssamples &lt;- 100# Correlation between pre-test and post-test scoresr = 0.8df &lt;- data.frame(round(mvrnorm(n=samples, mu=c(100, 100), Sigma=matrix(c(15^2, r, r, 15^2), nrow=2), empirical=TRUE)))names(df) &lt;- c(&quot;Pretest&quot;, &quot;Posttest&quot;)df$Subject &lt;- as.factor(1:100)df$Group &lt;- as.factor(rep(c(&quot;Control&quot;, &quot;Training&quot;), each=samples/2))head(df)## Pretest Posttest Subject Group## 1 81 87 1 Control## 2 105 84 2 Control## 3 85 100 3 Control## 4 89 102 4 Control## 5 87 114 5 Control## 6 105 120 6 Control# Long formatdf_long &lt;- melt(df, id.">
   
   
     
   <meta property="og:image" content="/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2017-01-01T00:00:00&#43;00:00">
+  
+  
   
 
   
 
   
 
-  <title>Posts | Francesco Sella</title>
+  <title>Untitled | Francesco Sella</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -209,98 +217,15 @@
 </nav>
 
 
-
-
-
-<div class="universal-wrapper">
-
-  <h1>Posts</h1>
+<article class="article" itemscope itemtype="http://schema.org/Article">
 
   
 
-  
-  
-    
-    
-      
 
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Francesco Sella">
-  </span>
-  
-
-  <span class="article-date">
-    
-    <meta content="2018-09-23 00:00:00 &#43;0000 UTC" itemprop="datePublished">
-    <time datetime="2018-09-23 00:00:00 &#43;0000 UTC" itemprop="dateModified">
-      Sep 23, 2018
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Francesco Sella">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    2 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder"></i>
-    
-    <a href="/categories/r/">R</a>
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/plotting-quartiles/" itemprop="url">Boxplot with quartiles</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    Boxplots are one of the best ways to represent distributions. Below, there is some code to create a costum boxplot by determining the pecentiles of the distribution that the wiskers and the box represent. In the example, I plotted the quartiles of the distribution of weight as a function of group from the dataset PlantGrowth.
-First, we create a function to extract quartiles. The values in probs represent the percentiles of the distributions, which then will be plotted.
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/plotting-quartiles/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
+  <div class="article-container">
+    <h1 itemprop="name">Untitled</h1>
 
     
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
 
 <div class="article-metadata">
 
@@ -335,34 +260,108 @@ First, we create a function to extract quartiles. The values in probs represent 
   
 
   
-
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Untitled&amp;url=%2fpost%2fprepostplots%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=%2fpost%2fprepostplots%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=%2fpost%2fprepostplots%2f&amp;title=Untitled"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=%2fpost%2fprepostplots%2f&amp;title=Untitled"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Untitled&amp;body=%2fpost%2fprepostplots%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
 </div>
 
 
   
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/prepostplots/" itemprop="url">Untitled</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
+
+</div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+
+<pre class="r"><code># Libraries
+library(&#39;MASS&#39;)
+library(reshape2)</code></pre>
+<pre><code>## Warning: package &#39;reshape2&#39; was built under R version 3.5.1</code></pre>
+<pre class="r"><code># Number of participants
+samples &lt;- 100
+
+# Correlation between pre-test and post-test scores
+r = 0.8
+
+df &lt;- data.frame(round(mvrnorm(n=samples, mu=c(100, 100), Sigma=matrix(c(15^2, r, r, 15^2), nrow=2), empirical=TRUE)))
+
+names(df) &lt;- c(&quot;Pretest&quot;, &quot;Posttest&quot;)
+
+df$Subject &lt;- as.factor(1:100)
+
+df$Group &lt;- as.factor(rep(c(&quot;Control&quot;, &quot;Training&quot;), each=samples/2))
+
+head(df)</code></pre>
+<pre><code>##   Pretest Posttest Subject   Group
+## 1      81       87       1 Control
+## 2     105       84       2 Control
+## 3      85      100       3 Control
+## 4      89      102       4 Control
+## 5      87      114       5 Control
+## 6     105      120       6 Control</code></pre>
+<pre class="r"><code># Long format
+df_long &lt;- melt(df, id.vars=c(&quot;Subject&quot;, &quot;Group&quot;), variable.name = &quot;Session&quot;, value.name = &quot;Score&quot;)
+
+# Simulating improvement
+impr_control &lt;- round(rnorm(n = samples/2, mean = 3, sd = 1))
+impr_training &lt;- round(rnorm(n = samples/2, mean = 6, sd = 1))
+
+# Add improvments
+df_long$Score[df_long$Session == &quot;Posttest&quot;] &lt;- df_long$Score[df_long$Session == &quot;Posttest&quot;] + c(impr_control, impr_training) </code></pre>
+
+    </div>
+
     
-    # Librarieslibrary(&#39;MASS&#39;)library(reshape2)## Warning: package &#39;reshape2&#39; was built under R version 3.5.1# Number of participantssamples &lt;- 100# Correlation between pre-test and post-test scoresr = 0.8df &lt;- data.frame(round(mvrnorm(n=samples, mu=c(100, 100), Sigma=matrix(c(15^2, r, r, 15^2), nrow=2), empirical=TRUE)))names(df) &lt;- c(&quot;Pretest&quot;, &quot;Posttest&quot;)df$Subject &lt;- as.factor(1:100)df$Group &lt;- as.factor(rep(c(&quot;Control&quot;, &quot;Training&quot;), each=samples/2))head(df)## Pretest Posttest Subject Group## 1 81 87 1 Control## 2 105 84 2 Control## 3 85 100 3 Control## 4 89 102 4 Control## 5 87 114 5 Control## 6 105 120 6 Control# Long formatdf_long &lt;- melt(df, id.
+
+
     
+    
+
+    
+
+    
+
+
   </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/prepostplots/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
+</article>
 
-    
-  
-
-  
-
-
-</div>
 <div class="container">
   <footer class="site-footer">
   
@@ -433,6 +432,10 @@ First, we create a function to extract quartiles. The values in probs represent 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
 
       
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+      
 
       
       
@@ -449,6 +452,8 @@ First, we create a function to extract quartiles. The values in probs represent 
     
 
     
+    
+    <script>hljs.initHighlightingOnLoad();</script>
     
 
     
