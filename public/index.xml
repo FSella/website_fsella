@@ -11,6 +11,102 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Plotting pre-post test analysis</title>
+      <link>/post/plotting-pre-post-test/</link>
+      <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/plotting-pre-post-test/</guid>
+      <description>&lt;p&gt;A cuick code to create a useful plot to visualise pre- and post-test results.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Clear all
+set.seed(42)
+
+# Packages
+library(ggplot2)
+library(Hmisc)
+library(cowplot)
+library(mvtnorm)
+library(reshape2)
+library(ggpubr)
+library(ggExtra)
+library(gridExtra)
+
+# Generate some correlated values
+Scores &amp;lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 
+0.8*sqrt(100),15),2,2))) 
+
+# Add improvement for the training group
+improvement &amp;lt;- c(rep(0,100), rep(10, 50), rep(0,50))
+Scores &amp;lt;- Scores + improvement
+
+# Groups
+Groups &amp;lt;- rep(rep(c(&amp;quot;Training&amp;quot;, &amp;quot;Control&amp;quot;), each=50),2)
+
+# Session
+Session &amp;lt;- rep(c(&amp;quot;Pretest&amp;quot;, &amp;quot;Posttest&amp;quot;), each = 100)
+
+# Subject ID
+Subject &amp;lt;- as.factor(rep(1:100,2))
+
+# Long format
+df_long &amp;lt;- data.frame(Subject, Session, Groups, Scores)
+
+# Wide format
+df_wide &amp;lt;-  dcast(df_long, Subject + Groups ~ Session, value.var=&amp;quot;Scores&amp;quot;)
+
+# Main scatterplot
+pmain &amp;lt;- ggplot(data = df_wide, aes(x=Pretest, y=Posttest, shape=Groups, fill=Groups)) +
+  geom_abline(slope = 1, col=&amp;quot;grey&amp;quot;) +
+  geom_point(size = 3) +
+  scale_shape_manual(values = c(21,22)) +
+  scale_fill_manual(values = c(&amp;quot;white&amp;quot;, &amp;quot;grey70&amp;quot;)) +
+  stat_smooth(method = &amp;quot;lm&amp;quot;, se = F, col=&amp;quot;Black&amp;quot;) +
+  theme_classic(base_size = 12) +
+  theme(axis.title.x = element_text(face=&amp;quot;bold&amp;quot;),
+        axis.title.y = element_text(face=&amp;quot;bold&amp;quot;),
+        legend.title = element_text(face=&amp;quot;bold&amp;quot;),
+        strip.text = element_text(face=&amp;quot;bold&amp;quot;),
+        axis.text.x = element_text(colour = &amp;quot;Black&amp;quot;),
+        axis.text.y = element_text(colour = &amp;quot;Black&amp;quot;),
+        axis.ticks.x = element_line(colour = &amp;quot;Black&amp;quot;, size = 0.2),
+        axis.ticks.y = element_line(colour = &amp;quot;Black&amp;quot;, size = 0.2),
+        axis.line.x = element_line(size = 0.2),
+        axis.line.y = element_line(size = 0.2),
+        strip.background = element_rect(size = 0.2),
+        panel.border = element_rect(size = 0.2,color=&amp;quot;black&amp;quot;, fill=NA),
+        plot.title = element_text(face=&amp;quot;bold&amp;quot;, hjust = 0.5),
+        legend.position=&amp;quot;right&amp;quot;,
+        panel.grid.major = element_line(size = (0.1), colour=&amp;quot;grey&amp;quot;),
+        panel.grid.minor = element_blank()) +
+  ggtitle(&amp;quot;Working Memory&amp;quot;)
+
+# Boxplot for pre-test
+xbox &amp;lt;- axis_canvas(pmain, axis = &amp;quot;x&amp;quot;, coord_flip = TRUE) + 
+  geom_boxplot(data = df_wide, aes(y = Pretest, x = Groups), outlier.size = 1) + 
+  stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.data = &amp;quot;mean_cl_normal&amp;quot;,colour=&amp;quot;black&amp;quot;,geom=&amp;quot;errorbar&amp;quot;, size=0.5) +
+  stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.y =&amp;quot;mean&amp;quot;, geom=&amp;quot;point&amp;quot;, shape=5, size=3) + 
+  scale_x_discrete() +
+  coord_flip() +
+  scale_fill_manual(values = c(&amp;quot;white&amp;quot;, &amp;quot;grey70&amp;quot;))
+
+# Boxplot for post-test
+ybox &amp;lt;- axis_canvas(pmain, axis = &amp;quot;y&amp;quot;) + 
+  geom_boxplot(data = df_wide, aes(y = Posttest, x = Groups), outlier.size = 1) +
+  stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.data = &amp;quot;mean_cl_normal&amp;quot;,colour=&amp;quot;black&amp;quot;,geom=&amp;quot;errorbar&amp;quot;, size=0.5) +
+  stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.y =&amp;quot;mean&amp;quot;, geom=&amp;quot;point&amp;quot;, shape=5, size=3) + 
+  scale_x_discrete() +
+  scale_fill_manual(values = c(&amp;quot;white&amp;quot;, &amp;quot;grey70&amp;quot;))
+
+# Combine plots
+p1 &amp;lt;- insert_xaxis_grob(pmain, xbox, grid::unit(1, &amp;quot;in&amp;quot;), position = &amp;quot;top&amp;quot;)
+p2 &amp;lt;- insert_yaxis_grob(p1, ybox, grid::unit(1, &amp;quot;in&amp;quot;), position = &amp;quot;right&amp;quot;)
+
+# Show the plot
+ggdraw(p2) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-02-25_plotting-pre-post-test_files/figure-html/plot-1.png&#34; width=&#34;672&#34; /&gt; ```&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Reporting Bayes factors from regression analysis</title>
       <link>/post/reporting-bf/</link>
       <pubDate>Tue, 29 Jan 2019 00:00:00 +0000</pubDate>
@@ -262,189 +358,6 @@ ggplot(data = PlantGrowth, aes(y=weight, x=group, width=0.3)) +
       
       <guid>/publication/selladevpsy2015/</guid>
       <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Slides</title>
-      <link>/slides/example-slides/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/slides/example-slides/</guid>
-      <description>
-
-&lt;h1 id=&#34;welcome-to-slides&#34;&gt;Welcome to Slides&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/&#34; target=&#34;_blank&#34;&gt;Academic&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;features&#34;&gt;Features&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Efficiently write slides in Markdown&lt;/li&gt;
-&lt;li&gt;3-in-1: Create, Present, and Publish your slides&lt;/li&gt;
-&lt;li&gt;Supports speaker notes&lt;/li&gt;
-&lt;li&gt;Mobile friendly slides&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;controls&#34;&gt;Controls&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Next: &lt;code&gt;Right Arrow&lt;/code&gt; or &lt;code&gt;Space&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Previous: &lt;code&gt;Left Arrow&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Start: &lt;code&gt;Home&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Finish: &lt;code&gt;End&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Overview: &lt;code&gt;Esc&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Speaker notes: &lt;code&gt;S&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Fullscreen: &lt;code&gt;F&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Zoom: &lt;code&gt;Alt + Click&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/hakimel/reveal.js#pdf-export&#34; target=&#34;_blank&#34;&gt;PDF Export&lt;/a&gt;: &lt;code&gt;E&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;code-highlighting&#34;&gt;Code Highlighting&lt;/h2&gt;
-
-&lt;p&gt;Inline code: &lt;code&gt;variable&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Code block:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;porridge = &amp;quot;blueberry&amp;quot;
-if porridge == &amp;quot;blueberry&amp;quot;:
-    print(&amp;quot;Eating...&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;math&#34;&gt;Math&lt;/h2&gt;
-
-&lt;p&gt;In-line math: $x + y = z$&lt;/p&gt;
-
-&lt;p&gt;Block math:&lt;/p&gt;
-
-&lt;p&gt;$$
-f\left( x \right) = \;\frac{{2\left( {x + 4} \right)\left( {x - 4} \right)}}{{\left( {x + 4} \right)\left( {x + 1} \right)}}
-$$&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;fragments&#34;&gt;Fragments&lt;/h2&gt;
-
-&lt;p&gt;Make content appear incrementally&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{% fragment %}} One {{% /fragment %}}
-{{% fragment %}} **Two** {{% /fragment %}}
-{{% fragment %}} Three {{% /fragment %}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Press &lt;code&gt;Space&lt;/code&gt; to play!&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&#34;fragment &#34; &gt;
-  One
-&lt;/span&gt;
-&lt;span class=&#34;fragment &#34; &gt;
-  &lt;strong&gt;Two&lt;/strong&gt;
-&lt;/span&gt;
-&lt;span class=&#34;fragment &#34; &gt;
-  Three
-&lt;/span&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;A fragment can accept two optional parameters:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;class&lt;/code&gt;: use a custom style (requires definition in custom CSS)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;weight&lt;/code&gt;: sets the order in which a fragment appears&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;speaker-notes&#34;&gt;Speaker Notes&lt;/h2&gt;
-
-&lt;p&gt;Add speaker notes to your presentation&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% speaker_note %}}
-- Only the speaker can read these notes
-- Press `S` key to view
-{{% /speaker_note %}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Press the &lt;code&gt;S&lt;/code&gt; key to view the speaker notes!&lt;/p&gt;
-
-&lt;aside class=&#34;notes&#34;&gt;
-  &lt;ul&gt;
-&lt;li&gt;Only the speaker can read these notes&lt;/li&gt;
-&lt;li&gt;Press &lt;code&gt;S&lt;/code&gt; key to view&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;/aside&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;black: Black background, white text, blue links (default)&lt;/li&gt;
-&lt;li&gt;white: White background, black text, blue links&lt;/li&gt;
-&lt;li&gt;league: Gray background, white text, blue links&lt;/li&gt;
-&lt;li&gt;beige: Beige background, dark text, brown links&lt;/li&gt;
-&lt;li&gt;sky: Blue background, thin dark text, blue links&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;night: Black background, thick white text, orange links&lt;/li&gt;
-&lt;li&gt;serif: Cappuccino background, gray text, brown links&lt;/li&gt;
-&lt;li&gt;simple: White background, black text, blue links&lt;/li&gt;
-&lt;li&gt;solarized: Cream-colored background, dark green text, blue links&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-
-&lt;section data-noprocess data-shortcode-slide
-  
-      
-      data-background-image=&#34;/img/boards.jpg&#34;
-  &gt;
-
-
-&lt;h2 id=&#34;custom-slide&#34;&gt;Custom Slide&lt;/h2&gt;
-
-&lt;p&gt;Customize the slide style and background&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; slide background-image=&amp;quot;/img/boards.jpg&amp;quot; &amp;gt;}}
-{{&amp;lt; slide background-color=&amp;quot;#0000FF&amp;quot; &amp;gt;}}
-{{&amp;lt; slide class=&amp;quot;my-style&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;custom-css-example&#34;&gt;Custom CSS Example&lt;/h2&gt;
-
-&lt;p&gt;Let&amp;rsquo;s make headers navy colored.&lt;/p&gt;
-
-&lt;p&gt;Create &lt;code&gt;assets/css/reveal_custom.css&lt;/code&gt; with:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.reveal section h1,
-.reveal section h2,
-.reveal section h3 {
-  color: navy;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;questions&#34;&gt;Questions?&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://discourse.gohugo.io&#34; target=&#34;_blank&#34;&gt;Ask&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/&#34; target=&#34;_blank&#34;&gt;Documentation&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

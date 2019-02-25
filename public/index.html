@@ -779,6 +779,94 @@
 
   <span class="article-date">
     
+    <meta content="2019-02-25 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+    <time datetime="2019-02-25 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+      Feb 25, 2019
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Francesco Sella">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/r/">R</a>
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+
+  
+  
+  <h3 class="article-title" itemprop="headline">
+    <a href="/post/plotting-pre-post-test/" itemprop="url">Plotting pre-post test analysis</a>
+  </h3>
+  <div class="article-style" itemprop="articleBody">
+    
+    A cuick code to create a useful plot to visualise pre- and post-test results.
+# Clear allset.seed(42)# Packageslibrary(ggplot2)library(Hmisc)library(cowplot)library(mvtnorm)library(reshape2)library(ggpubr)library(ggExtra)library(gridExtra)# Generate some correlated valuesScores &lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 0.8*sqrt(100),15),2,2))) # Add improvement for the training groupimprovement &lt;- c(rep(0,100), rep(10, 50), rep(0,50))Scores &lt;- Scores + improvement# GroupsGroups &lt;- rep(rep(c(&quot;Training&quot;, &quot;Control&quot;), each=50),2)# SessionSession &lt;- rep(c(&quot;Pretest&quot;, &quot;Posttest&quot;), each = 100)# Subject IDSubject &lt;- as.
+    
+  </div>
+  <p class="read-more" itemprop="mainEntityOfPage">
+    <a href="/post/plotting-pre-post-test/" class="btn btn-outline-primary my-1">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+        
+      
+
+      
+
+        
+
+        
+        
+
+        
+        
+
+      
+      
+        
+        
+          
+
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  
+
+<div class="article-metadata">
+
+  
+  
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Francesco Sella">
+  </span>
+  
+
+  <span class="article-date">
+    
     <meta content="2019-01-29 00:00:00 &#43;0000 UTC" itemprop="datePublished">
     <time datetime="2019-01-29 00:00:00 &#43;0000 UTC" itemprop="dateModified">
       Jan 29, 2019

@@ -15,10 +15,11 @@
   
     
   
-  <meta name="description" content="Lecturer of Developmental Psychology">
+  <meta name="description" content="A cuick code to create a useful plot to visualise pre- and post-test results.
+# Clear allset.seed(42)# Packageslibrary(ggplot2)library(Hmisc)library(cowplot)library(mvtnorm)library(reshape2)library(ggpubr)library(ggExtra)library(gridExtra)# Generate some correlated valuesScores &lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 0.8*sqrt(100),15),2,2))) # Add improvement for the training groupimprovement &lt;- c(rep(0,100), rep(10, 50), rep(0,50))Scores &lt;- Scores &#43; improvement# GroupsGroups &lt;- rep(rep(c(&quot;Training&quot;, &quot;Control&quot;), each=50),2)# SessionSession &lt;- rep(c(&quot;Pretest&quot;, &quot;Posttest&quot;), each = 100)# Subject IDSubject &lt;- as.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/">
+  <link rel="alternate" hreflang="en-us" href="/post/plotting-pre-post-test/">
 
   
 
@@ -47,6 +48,13 @@
       
     
     
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" crossorigin="anonymous">
+        
+      
+    
 
     
 
@@ -67,36 +75,39 @@
   
 
   
-  <link rel="alternate" href="/post/index.xml" type="application/rss+xml" title="Francesco Sella">
-  <link rel="feed" href="/post/index.xml" type="application/rss+xml" title="Francesco Sella">
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Francesco Sella">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Francesco Sella">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/post/">
+  <link rel="canonical" href="/post/plotting-pre-post-test/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Francesco Sella">
-  <meta property="og:url" content="/post/">
-  <meta property="og:title" content="Posts | Francesco Sella">
-  <meta property="og:description" content="Lecturer of Developmental Psychology">
+  <meta property="og:url" content="/post/plotting-pre-post-test/">
+  <meta property="og:title" content="Plotting pre-post test analysis | Francesco Sella">
+  <meta property="og:description" content="A cuick code to create a useful plot to visualise pre- and post-test results.
+# Clear allset.seed(42)# Packageslibrary(ggplot2)library(Hmisc)library(cowplot)library(mvtnorm)library(reshape2)library(ggpubr)library(ggExtra)library(gridExtra)# Generate some correlated valuesScores &lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 0.8*sqrt(100),15),2,2))) # Add improvement for the training groupimprovement &lt;- c(rep(0,100), rep(10, 50), rep(0,50))Scores &lt;- Scores &#43; improvement# GroupsGroups &lt;- rep(rep(c(&quot;Training&quot;, &quot;Control&quot;), each=50),2)# SessionSession &lt;- rep(c(&quot;Pretest&quot;, &quot;Posttest&quot;), each = 100)# Subject IDSubject &lt;- as.">
   
   
     
   <meta property="og:image" content="/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2017-01-01T00:00:00&#43;00:00">
+  <meta property="article:published_time" content="2019-02-25T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2019-02-25T00:00:00&#43;00:00">
   
 
   
 
   
 
-  <title>Posts | Francesco Sella</title>
+  <title>Plotting pre-post test analysis | Francesco Sella</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -209,23 +220,15 @@
 </nav>
 
 
-
-
-
-<div class="universal-wrapper">
-
-  <h1>Posts</h1>
+<article class="article" itemscope itemtype="http://schema.org/Article">
 
   
 
-  
-  
+
+  <div class="article-container">
+    <h1 itemprop="name">Plotting pre-post test analysis</h1>
+
     
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
 
 <div class="article-metadata">
 
@@ -271,185 +274,160 @@
   
 
   
-
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Plotting%20pre-post%20test%20analysis&amp;url=%2fpost%2fplotting-pre-post-test%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=%2fpost%2fplotting-pre-post-test%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=%2fpost%2fplotting-pre-post-test%2f&amp;title=Plotting%20pre-post%20test%20analysis"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=%2fpost%2fplotting-pre-post-test%2f&amp;title=Plotting%20pre-post%20test%20analysis"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Plotting%20pre-post%20test%20analysis&amp;body=%2fpost%2fplotting-pre-post-test%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
 </div>
 
 
   
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/plotting-pre-post-test/" itemprop="url">Plotting pre-post test analysis</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
+
+</div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      <p>A cuick code to create a useful plot to visualise pre- and post-test results.</p>
+<pre class="r"><code># Clear all
+set.seed(42)
+
+# Packages
+library(ggplot2)
+library(Hmisc)
+library(cowplot)
+library(mvtnorm)
+library(reshape2)
+library(ggpubr)
+library(ggExtra)
+library(gridExtra)
+
+# Generate some correlated values
+Scores &lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 
+0.8*sqrt(100),15),2,2))) 
+
+# Add improvement for the training group
+improvement &lt;- c(rep(0,100), rep(10, 50), rep(0,50))
+Scores &lt;- Scores + improvement
+
+# Groups
+Groups &lt;- rep(rep(c(&quot;Training&quot;, &quot;Control&quot;), each=50),2)
+
+# Session
+Session &lt;- rep(c(&quot;Pretest&quot;, &quot;Posttest&quot;), each = 100)
+
+# Subject ID
+Subject &lt;- as.factor(rep(1:100,2))
+
+# Long format
+df_long &lt;- data.frame(Subject, Session, Groups, Scores)
+
+# Wide format
+df_wide &lt;-  dcast(df_long, Subject + Groups ~ Session, value.var=&quot;Scores&quot;)
+
+# Main scatterplot
+pmain &lt;- ggplot(data = df_wide, aes(x=Pretest, y=Posttest, shape=Groups, fill=Groups)) +
+  geom_abline(slope = 1, col=&quot;grey&quot;) +
+  geom_point(size = 3) +
+  scale_shape_manual(values = c(21,22)) +
+  scale_fill_manual(values = c(&quot;white&quot;, &quot;grey70&quot;)) +
+  stat_smooth(method = &quot;lm&quot;, se = F, col=&quot;Black&quot;) +
+  theme_classic(base_size = 12) +
+  theme(axis.title.x = element_text(face=&quot;bold&quot;),
+        axis.title.y = element_text(face=&quot;bold&quot;),
+        legend.title = element_text(face=&quot;bold&quot;),
+        strip.text = element_text(face=&quot;bold&quot;),
+        axis.text.x = element_text(colour = &quot;Black&quot;),
+        axis.text.y = element_text(colour = &quot;Black&quot;),
+        axis.ticks.x = element_line(colour = &quot;Black&quot;, size = 0.2),
+        axis.ticks.y = element_line(colour = &quot;Black&quot;, size = 0.2),
+        axis.line.x = element_line(size = 0.2),
+        axis.line.y = element_line(size = 0.2),
+        strip.background = element_rect(size = 0.2),
+        panel.border = element_rect(size = 0.2,color=&quot;black&quot;, fill=NA),
+        plot.title = element_text(face=&quot;bold&quot;, hjust = 0.5),
+        legend.position=&quot;right&quot;,
+        panel.grid.major = element_line(size = (0.1), colour=&quot;grey&quot;),
+        panel.grid.minor = element_blank()) +
+  ggtitle(&quot;Working Memory&quot;)
+
+# Boxplot for pre-test
+xbox &lt;- axis_canvas(pmain, axis = &quot;x&quot;, coord_flip = TRUE) + 
+  geom_boxplot(data = df_wide, aes(y = Pretest, x = Groups), outlier.size = 1) + 
+  stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.data = &quot;mean_cl_normal&quot;,colour=&quot;black&quot;,geom=&quot;errorbar&quot;, size=0.5) +
+  stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.y =&quot;mean&quot;, geom=&quot;point&quot;, shape=5, size=3) + 
+  scale_x_discrete() +
+  coord_flip() +
+  scale_fill_manual(values = c(&quot;white&quot;, &quot;grey70&quot;))
+
+# Boxplot for post-test
+ybox &lt;- axis_canvas(pmain, axis = &quot;y&quot;) + 
+  geom_boxplot(data = df_wide, aes(y = Posttest, x = Groups), outlier.size = 1) +
+  stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.data = &quot;mean_cl_normal&quot;,colour=&quot;black&quot;,geom=&quot;errorbar&quot;, size=0.5) +
+  stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.y =&quot;mean&quot;, geom=&quot;point&quot;, shape=5, size=3) + 
+  scale_x_discrete() +
+  scale_fill_manual(values = c(&quot;white&quot;, &quot;grey70&quot;))
+
+# Combine plots
+p1 &lt;- insert_xaxis_grob(pmain, xbox, grid::unit(1, &quot;in&quot;), position = &quot;top&quot;)
+p2 &lt;- insert_yaxis_grob(p1, ybox, grid::unit(1, &quot;in&quot;), position = &quot;right&quot;)
+
+# Show the plot
+ggdraw(p2) </code></pre>
+<p><img src="/post/2019-02-25_plotting-pre-post-test_files/figure-html/plot-1.png" width="672" /> ```</p>
+
+    </div>
+
     
-    A cuick code to create a useful plot to visualise pre- and post-test results.
-# Clear allset.seed(42)# Packageslibrary(ggplot2)library(Hmisc)library(cowplot)library(mvtnorm)library(reshape2)library(ggpubr)library(ggExtra)library(gridExtra)# Generate some correlated valuesScores &lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 0.8*sqrt(100),15),2,2))) # Add improvement for the training groupimprovement &lt;- c(rep(0,100), rep(10, 50), rep(0,50))Scores &lt;- Scores + improvement# GroupsGroups &lt;- rep(rep(c(&quot;Training&quot;, &quot;Control&quot;), each=50),2)# SessionSession &lt;- rep(c(&quot;Pretest&quot;, &quot;Posttest&quot;), each = 100)# Subject IDSubject &lt;- as.
+
+
+
+
+
     
+    
+
+    
+
+    
+
+
   </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/plotting-pre-post-test/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
+</article>
 
-    
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Francesco Sella">
-  </span>
-  
-
-  <span class="article-date">
-    
-    <meta content="2019-01-29 00:00:00 &#43;0000 UTC" itemprop="datePublished">
-    <time datetime="2019-01-29 00:00:00 &#43;0000 UTC" itemprop="dateModified">
-      Jan 29, 2019
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Francesco Sella">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    2 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder"></i>
-    
-    <a href="/categories/r/">R</a>
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/reporting-bf/" itemprop="url">Reporting Bayes factors from regression analysis</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    A quick function to extract and report large Bayes factors as a power of 10 when running regression analysis. The function takes the output of regressionBF (Package BayesFactor: Morey &amp; Rouder, 2018), extracts the BF and converts into a format for Rmarkdown.
-# A fucntion to extract and report Bayes FactorsBF_scirep_str &lt;- function(model) {output &lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)output &lt;- sub(&quot;e&quot;, &quot;x10&lt;sup&gt;&quot;, output) #Replace e with 10^output &lt;- sub(&quot;\\+0?
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/reporting-bf/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
-  
-    
-    
-      
-
-<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
-  
-
-<div class="article-metadata">
-
-  
-  
-  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Francesco Sella">
-  </span>
-  
-
-  <span class="article-date">
-    
-    <meta content="2018-09-23 00:00:00 &#43;0000 UTC" itemprop="datePublished">
-    <time datetime="2018-09-23 00:00:00 &#43;0000 UTC" itemprop="dateModified">
-      Sep 23, 2018
-    </time>
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Francesco Sella">
-  </span>
-
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    2 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-  
-  <span class="middot-divider"></span>
-  <span class="article-categories">
-    <i class="fas fa-folder"></i>
-    
-    <a href="/categories/r/">R</a>
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-
-  
-  
-  <h3 class="article-title" itemprop="headline">
-    <a href="/post/plotting-quartiles/" itemprop="url">Boxplot with quartiles</a>
-  </h3>
-  <div class="article-style" itemprop="articleBody">
-    
-    Boxplots are one of the best ways to represent distributions. Below, there is some code to create a costum boxplot by determining the pecentiles of the distribution that the wiskers and the box represent. In the example, I plotted the quartiles of the distribution of weight as a function of group from the dataset PlantGrowth.
-First, we create a function to extract quartiles. The values in probs represent the percentiles of the distributions, which then will be plotted.
-    
-  </div>
-  <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="/post/plotting-quartiles/" class="btn btn-outline-primary my-1">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-    
-  
-
-  
-
-
-</div>
 <div class="container">
   <footer class="site-footer">
   
@@ -520,6 +498,10 @@ First, we create a function to extract quartiles. The values in probs represent 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
 
       
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+      
 
       
       
@@ -536,6 +518,8 @@ First, we create a function to extract quartiles. The values in probs represent 
     
 
     
+    
+    <script>hljs.initHighlightingOnLoad();</script>
     
 
     

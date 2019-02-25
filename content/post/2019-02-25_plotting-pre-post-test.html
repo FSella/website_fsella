@@ -1,0 +1,101 @@
+---
+title: Plotting pre-post test analysis
+author: FS
+date: '2019-02-25'
+slug: plotting-pre-post-test
+categories: [R]
+tags: []
+header:
+  caption: ''
+  image: ''
+---
+
+
+
+<p>A cuick code to create a useful plot to visualise pre- and post-test results.</p>
+<pre class="r"><code># Clear all
+set.seed(42)
+
+# Packages
+library(ggplot2)
+library(Hmisc)
+library(cowplot)
+library(mvtnorm)
+library(reshape2)
+library(ggpubr)
+library(ggExtra)
+library(gridExtra)
+
+# Generate some correlated values
+Scores &lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 
+0.8*sqrt(100),15),2,2))) 
+
+# Add improvement for the training group
+improvement &lt;- c(rep(0,100), rep(10, 50), rep(0,50))
+Scores &lt;- Scores + improvement
+
+# Groups
+Groups &lt;- rep(rep(c(&quot;Training&quot;, &quot;Control&quot;), each=50),2)
+
+# Session
+Session &lt;- rep(c(&quot;Pretest&quot;, &quot;Posttest&quot;), each = 100)
+
+# Subject ID
+Subject &lt;- as.factor(rep(1:100,2))
+
+# Long format
+df_long &lt;- data.frame(Subject, Session, Groups, Scores)
+
+# Wide format
+df_wide &lt;-  dcast(df_long, Subject + Groups ~ Session, value.var=&quot;Scores&quot;)
+
+# Main scatterplot
+pmain &lt;- ggplot(data = df_wide, aes(x=Pretest, y=Posttest, shape=Groups, fill=Groups)) +
+  geom_abline(slope = 1, col=&quot;grey&quot;) +
+  geom_point(size = 3) +
+  scale_shape_manual(values = c(21,22)) +
+  scale_fill_manual(values = c(&quot;white&quot;, &quot;grey70&quot;)) +
+  stat_smooth(method = &quot;lm&quot;, se = F, col=&quot;Black&quot;) +
+  theme_classic(base_size = 12) +
+  theme(axis.title.x = element_text(face=&quot;bold&quot;),
+        axis.title.y = element_text(face=&quot;bold&quot;),
+        legend.title = element_text(face=&quot;bold&quot;),
+        strip.text = element_text(face=&quot;bold&quot;),
+        axis.text.x = element_text(colour = &quot;Black&quot;),
+        axis.text.y = element_text(colour = &quot;Black&quot;),
+        axis.ticks.x = element_line(colour = &quot;Black&quot;, size = 0.2),
+        axis.ticks.y = element_line(colour = &quot;Black&quot;, size = 0.2),
+        axis.line.x = element_line(size = 0.2),
+        axis.line.y = element_line(size = 0.2),
+        strip.background = element_rect(size = 0.2),
+        panel.border = element_rect(size = 0.2,color=&quot;black&quot;, fill=NA),
+        plot.title = element_text(face=&quot;bold&quot;, hjust = 0.5),
+        legend.position=&quot;right&quot;,
+        panel.grid.major = element_line(size = (0.1), colour=&quot;grey&quot;),
+        panel.grid.minor = element_blank()) +
+  ggtitle(&quot;Working Memory&quot;)
+
+# Boxplot for pre-test
+xbox &lt;- axis_canvas(pmain, axis = &quot;x&quot;, coord_flip = TRUE) + 
+  geom_boxplot(data = df_wide, aes(y = Pretest, x = Groups), outlier.size = 1) + 
+  stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.data = &quot;mean_cl_normal&quot;,colour=&quot;black&quot;,geom=&quot;errorbar&quot;, size=0.5) +
+  stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.y =&quot;mean&quot;, geom=&quot;point&quot;, shape=5, size=3) + 
+  scale_x_discrete() +
+  coord_flip() +
+  scale_fill_manual(values = c(&quot;white&quot;, &quot;grey70&quot;))
+
+# Boxplot for post-test
+ybox &lt;- axis_canvas(pmain, axis = &quot;y&quot;) + 
+  geom_boxplot(data = df_wide, aes(y = Posttest, x = Groups), outlier.size = 1) +
+  stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.data = &quot;mean_cl_normal&quot;,colour=&quot;black&quot;,geom=&quot;errorbar&quot;, size=0.5) +
+  stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.y =&quot;mean&quot;, geom=&quot;point&quot;, shape=5, size=3) + 
+  scale_x_discrete() +
+  scale_fill_manual(values = c(&quot;white&quot;, &quot;grey70&quot;))
+
+# Combine plots
+p1 &lt;- insert_xaxis_grob(pmain, xbox, grid::unit(1, &quot;in&quot;), position = &quot;top&quot;)
+p2 &lt;- insert_yaxis_grob(p1, ybox, grid::unit(1, &quot;in&quot;), position = &quot;right&quot;)
+
+# Show the plot
+ggdraw(p2) </code></pre>
+<p><img src="/post/2019-02-25_plotting-pre-post-test_files/figure-html/plot-1.png" width="672" /> ```</p>
