@@ -15,8 +15,7 @@
   
     
   
-  <meta name="description" content="A cuick code to create a useful plot to visualise pre- and post-test results.
-# Clear allset.seed(42)# Packageslibrary(ggplot2)library(Hmisc)library(cowplot)library(mvtnorm)library(reshape2)library(ggpubr)library(ggExtra)library(gridExtra)# Generate some correlated valuesScores &lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 0.8*sqrt(100),15),2,2))) # Add improvement for the training groupimprovement &lt;- c(rep(0,100), rep(10, 50), rep(0,50))Scores &lt;- Scores &#43; improvement# GroupsGroups &lt;- rep(rep(c(&quot;Training&quot;, &quot;Control&quot;), each=50),2)# SessionSession &lt;- rep(c(&quot;Pretest&quot;, &quot;Posttest&quot;), each = 100)# Subject IDSubject &lt;- as.">
+  <meta name="description" content="A quick code to create a useful plot to visualise pre- and post-test results. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&gt; Subjects above the line display a better performance at post-test compared to pre-test.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/plotting-pre-post-test/">
@@ -90,8 +89,7 @@
   <meta property="og:site_name" content="Francesco Sella">
   <meta property="og:url" content="/post/plotting-pre-post-test/">
   <meta property="og:title" content="Plotting pre-post test analysis | Francesco Sella">
-  <meta property="og:description" content="A cuick code to create a useful plot to visualise pre- and post-test results.
-# Clear allset.seed(42)# Packageslibrary(ggplot2)library(Hmisc)library(cowplot)library(mvtnorm)library(reshape2)library(ggpubr)library(ggExtra)library(gridExtra)# Generate some correlated valuesScores &lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 0.8*sqrt(100),15),2,2))) # Add improvement for the training groupimprovement &lt;- c(rep(0,100), rep(10, 50), rep(0,50))Scores &lt;- Scores &#43; improvement# GroupsGroups &lt;- rep(rep(c(&quot;Training&quot;, &quot;Control&quot;), each=50),2)# SessionSession &lt;- rep(c(&quot;Pretest&quot;, &quot;Posttest&quot;), each = 100)# Subject IDSubject &lt;- as.">
+  <meta property="og:description" content="A quick code to create a useful plot to visualise pre- and post-test results. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&gt; Subjects above the line display a better performance at post-test compared to pre-test.">
   
   
     
@@ -253,7 +251,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    2 min read
+    3 min read
   </span>
   
 
@@ -321,8 +319,8 @@
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>A cuick code to create a useful plot to visualise pre- and post-test results.</p>
-<pre class="r"><code># Clear all
+      <p>A quick code to create a useful plot to visualise pre- and post-test results. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&gt; Subjects above the line display a better performance at post-test compared to pre-test. At the margins, the boxplots are reported as well as the mean (i.e., diamond) and 95% confidence intervals (i.e., error bars). In this example, participants in the training group show an improvement in a Working Memory task.</p>
+<pre class="r"><code># Seed
 set.seed(42)
 
 # Packages
@@ -386,7 +384,7 @@ pmain &lt;- ggplot(data = df_wide, aes(x=Pretest, y=Posttest, shape=Groups, fill
 
 # Boxplot for pre-test
 xbox &lt;- axis_canvas(pmain, axis = &quot;x&quot;, coord_flip = TRUE) + 
-  geom_boxplot(data = df_wide, aes(y = Pretest, x = Groups), outlier.size = 1) + 
+  geom_boxplot(data = df_wide, aes(y = Pretest, x = Groups, fill=Groups), outlier.size = 1) + 
   stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.data = &quot;mean_cl_normal&quot;,colour=&quot;black&quot;,geom=&quot;errorbar&quot;, size=0.5) +
   stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.y =&quot;mean&quot;, geom=&quot;point&quot;, shape=5, size=3) + 
   scale_x_discrete() +
@@ -395,7 +393,7 @@ xbox &lt;- axis_canvas(pmain, axis = &quot;x&quot;, coord_flip = TRUE) +
 
 # Boxplot for post-test
 ybox &lt;- axis_canvas(pmain, axis = &quot;y&quot;) + 
-  geom_boxplot(data = df_wide, aes(y = Posttest, x = Groups), outlier.size = 1) +
+  geom_boxplot(data = df_wide, aes(y = Posttest, x = Groups, fill=Groups), outlier.size = 1) +
   stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.data = &quot;mean_cl_normal&quot;,colour=&quot;black&quot;,geom=&quot;errorbar&quot;, size=0.5) +
   stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.y =&quot;mean&quot;, geom=&quot;point&quot;, shape=5, size=3) + 
   scale_x_discrete() +

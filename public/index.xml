@@ -16,8 +16,8 @@
       <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/plotting-pre-post-test/</guid>
-      <description>&lt;p&gt;A cuick code to create a useful plot to visualise pre- and post-test results.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Clear all
+      <description>&lt;p&gt;A quick code to create a useful plot to visualise pre- and post-test results. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&amp;gt; Subjects above the line display a better performance at post-test compared to pre-test. At the margins, the boxplots are reported as well as the mean (i.e., diamond) and 95% confidence intervals (i.e., error bars). In this example, participants in the training group show an improvement in a Working Memory task.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Seed
 set.seed(42)
 
 # Packages
@@ -81,7 +81,7 @@ pmain &amp;lt;- ggplot(data = df_wide, aes(x=Pretest, y=Posttest, shape=Groups, 
 
 # Boxplot for pre-test
 xbox &amp;lt;- axis_canvas(pmain, axis = &amp;quot;x&amp;quot;, coord_flip = TRUE) + 
-  geom_boxplot(data = df_wide, aes(y = Pretest, x = Groups), outlier.size = 1) + 
+  geom_boxplot(data = df_wide, aes(y = Pretest, x = Groups, fill=Groups), outlier.size = 1) + 
   stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.data = &amp;quot;mean_cl_normal&amp;quot;,colour=&amp;quot;black&amp;quot;,geom=&amp;quot;errorbar&amp;quot;, size=0.5) +
   stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.y =&amp;quot;mean&amp;quot;, geom=&amp;quot;point&amp;quot;, shape=5, size=3) + 
   scale_x_discrete() +
@@ -90,7 +90,7 @@ xbox &amp;lt;- axis_canvas(pmain, axis = &amp;quot;x&amp;quot;, coord_flip = TRU
 
 # Boxplot for post-test
 ybox &amp;lt;- axis_canvas(pmain, axis = &amp;quot;y&amp;quot;) + 
-  geom_boxplot(data = df_wide, aes(y = Posttest, x = Groups), outlier.size = 1) +
+  geom_boxplot(data = df_wide, aes(y = Posttest, x = Groups, fill=Groups), outlier.size = 1) +
   stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.data = &amp;quot;mean_cl_normal&amp;quot;,colour=&amp;quot;black&amp;quot;,geom=&amp;quot;errorbar&amp;quot;, size=0.5) +
   stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.y =&amp;quot;mean&amp;quot;, geom=&amp;quot;point&amp;quot;, shape=5, size=3) + 
   scale_x_discrete() +

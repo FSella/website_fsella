@@ -250,7 +250,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    2 min read
+    3 min read
   </span>
   
 
@@ -282,8 +282,7 @@
   </h3>
   <div class="article-style" itemprop="articleBody">
     
-    A cuick code to create a useful plot to visualise pre- and post-test results.
-# Clear allset.seed(42)# Packageslibrary(ggplot2)library(Hmisc)library(cowplot)library(mvtnorm)library(reshape2)library(ggpubr)library(ggExtra)library(gridExtra)# Generate some correlated valuesScores &lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 0.8*sqrt(100),15),2,2))) # Add improvement for the training groupimprovement &lt;- c(rep(0,100), rep(10, 50), rep(0,50))Scores &lt;- Scores + improvement# GroupsGroups &lt;- rep(rep(c(&quot;Training&quot;, &quot;Control&quot;), each=50),2)# SessionSession &lt;- rep(c(&quot;Pretest&quot;, &quot;Posttest&quot;), each = 100)# Subject IDSubject &lt;- as.
+    A quick code to create a useful plot to visualise pre- and post-test results. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&gt; Subjects above the line display a better performance at post-test compared to pre-test.
     
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">
