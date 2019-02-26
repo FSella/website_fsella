@@ -12,7 +12,9 @@ header:
 
 
 
-<p>A quick code to create a useful plot to visualise pre- and post-test results. I was inspired by this <a href="https://stackoverflow.com/questions/47446458/ggextra-plot-format-similar-marginal-plots-for-different-plot-dimensions">post</a>. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&gt; Subjects above the line display a better performance at post-test compared to pre-test. At the margins, the boxplots are reported as well as the mean (i.e., diamond) and 95% confidence intervals (i.e., error bars). In this example, participants in the training group show an improvement in a Working Memory task.</p>
+<div id="warning-work-in-progress" class="section level2">
+<h2>WARNING: WORK IN PROGRESS</h2>
+<p>A quick code to create a useful plot to visualise pre- and post-test results. I was inspired by this <a href="https://stackoverflow.com/questions/47446458/ggextra-plot-format-similar-marginal-plots-for-different-plot-dimensions">post</a> and this <a href="http://faculty.missouri.edu/huangf/data/quantf/ancova_in_r_handout.pdf">post</a>. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&gt; Subjects above the line display a better performance at post-test compared to pre-test. At the margins, the boxplots are reported as well as the mean (i.e., diamond) and 95% confidence intervals (i.e., error bars). In the case of the post-test scores (plot on the right margin), the adjsuted means (i.e., black triangles) and associated 95% confidence intervals (i.e., error bars) are reported. The table reports the results for the ANCOVA and its assumptions. In this example, participants in the training group show an improvement in a Working Memory task.</p>
 <pre class="r"><code># Seed
 set.seed(42)
 
@@ -25,6 +27,20 @@ library(reshape2)
 library(ggpubr)
 library(ggExtra)
 library(gridExtra)
+library(car)
+library(apaTables)
+library(BayesFactor)
+library(dplyr)
+library(effects)
+
+# BF_scirep_str &lt;- function(model) {
+#   output &lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)
+#   output &lt;- sub(&quot;e&quot;, &quot;x10&lt;sup&gt;&quot;, output) #Replace e with 10^
+#   output &lt;- sub(&quot;\\+0?&quot;, &quot;&quot;, output) #Remove + symbol and leading zeros on expoent, if &gt; 1
+#   output &lt;- sub(&quot;-0?&quot;, &quot;-&quot;, output) #Leaves - symbol but removes leading zeros on expoent, if &lt; 1
+#   output
+# }
+
 
 # Generate some correlated values
 Scores &lt;- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 
@@ -48,6 +64,81 @@ df_long &lt;- data.frame(Subject, Session, Groups, Scores)
 
 # Wide format
 df_wide &lt;-  dcast(df_long, Subject + Groups ~ Session, value.var=&quot;Scores&quot;)
+
+# ANCOVA
+
+# Assumption 1: equality of slopes–interaction is not significiant.
+res_int &lt;- aov(Posttest ~ Pretest + Groups + Groups:Pretest, data = df_wide)
+pvalue_int &lt;- summary(res_int)[[1]][[&quot;Pr(&gt;F)&quot;]][3]
+res_int_bf &lt;- lmBF(Posttest ~ Pretest + Groups + Groups:Pretest, data = df_wide, whichRandom = &quot;Subject&quot;)
+res_maineff_bf &lt;- lmBF(Posttest ~ Pretest + Groups, data = df_wide, whichRandom = &quot;Subject&quot;)
+bf_int &lt;- extractBF(res_int_bf/res_maineff_bf, onlybf = T)
+
+# Assumption 2: linearity of slopes
+gp &lt;- group_by(df_wide, Groups)
+cor_pvalues &lt;- as.data.frame(dplyr::summarize(gp, cor.test(Pretest, Posttest)$p.value))
+names(cor_pvalues)[2] &lt;- &quot;pval&quot;
+cor_bf &lt;- as.data.frame(dplyr::summarize(gp, extractBF(correlationBF(y = Pretest, x = Posttest), onlybf = T)))
+names(cor_bf)[2] &lt;- &quot;bf&quot;
+
+# Assumption 3: Equality of the groups on the covariate
+res_comp_cov &lt;- aov(Pretest ~ Groups, data = df_wide)
+pvalue_comp_cov &lt;- summary(res_comp_cov)[[1]][[&quot;Pr(&gt;F)&quot;]][1]
+res_comp_cov_bf &lt;- anovaBF(Pretest ~ Groups, data = df_wide, whichRandom = &quot;Subject&quot;)
+bf_comp_cov &lt;- extractBF(res_comp_cov_bf, onlybf = T)
+
+# Assumption 4: Homogeneity of variance
+res_omvar &lt;- leveneTest(Posttest ~ Groups, center = mean, data = df_wide)
+pvalue_omvar &lt;- res_omvar$`Pr(&gt;F)`[1]
+
+# Results ANCOVA
+res_anc &lt;- aov(Posttest ~ Pretest + Groups, data = df_wide)
+pvalue_anc &lt;- summary(res_anc)[[1]][[&quot;Pr(&gt;F)&quot;]][2]
+res_anc_bf &lt;- lmBF(Posttest ~ Pretest + Groups, data = df_wide, whichRandom = &quot;Subject&quot;)
+res_effcov_bf &lt;- lmBF(Posttest ~ Pretest, data = df_wide, whichRandom = &quot;Subject&quot;)
+bf_anc &lt;- extractBF(res_anc_bf/res_effcov_bf, onlybf = T)
+pvalue_shap_anc &lt;- shapiro.test(resid(res_anc))$p.value
+
+# Adjusted means
+adj_means &lt;- as.data.frame(effect(&quot;Groups&quot;, res_anc))
+
+# Table with results
+result_text &lt;- c(&quot;Interaction Group x Pretest&quot;,
+                 paste(&quot;Linearity: Pretest / Posttest for&quot;, cor_pvalues$Groups[1]),
+                 paste(&quot;Linearity: Pretest / Posttest for&quot;, cor_pvalues$Groups[2]),
+                 &quot;Pretest ~ Group&quot;,
+                 &quot;Homogeinity variance&quot;,
+                 &quot;ANCOVA: effect of group&quot;,
+                 &quot;Normality Residuals ANCOVA&quot;)
+
+p_values &lt;- c(pvalue_int,
+              cor_pvalues$pval[1],
+              cor_pvalues$pval[2],
+              pvalue_comp_cov,
+              pvalue_omvar,
+              pvalue_anc,
+              pvalue_shap_anc)
+
+bfs_text &lt;- c(&quot;BF: interaction/main effects&quot;,
+              &quot;BF10&quot;,
+              &quot;BF10&quot;,
+              &quot;BF10&quot;,
+              NA,
+              &quot;BF: Pretest+Group/Pretest&quot;,
+              NA)
+
+bfs &lt;- c(bf_int,
+         cor_bf$bf[1],
+         cor_bf$bf[2],
+         bf_comp_cov,
+         NA,
+         bf_anc,
+         NA)
+
+table_res &lt;- data.frame(result_text, format.pval(p_values, digits = 3), bfs_text, formatC(bfs, digits = 3))
+row.names(table_res)&lt;-NULL
+names(table_res) &lt;- c(&quot;Effect&quot;, &quot;p-value&quot;, &quot;BF comparison&quot;, &quot;BF&quot;)
+tab_res &lt;- ggtexttable(table_res, rows=NULL)
 
 # Main scatterplot
 pmain &lt;- ggplot(data = df_wide, aes(x=Pretest, y=Posttest, shape=Groups, fill=Groups)) +
@@ -78,24 +169,28 @@ pmain &lt;- ggplot(data = df_wide, aes(x=Pretest, y=Posttest, shape=Groups, fill
 # Boxplot for pre-test
 xbox &lt;- axis_canvas(pmain, axis = &quot;x&quot;, coord_flip = TRUE) + 
   geom_boxplot(data = df_wide, aes(y = Pretest, x = Groups, fill=Groups), outlier.size = 1) + 
-  stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.data = &quot;mean_cl_normal&quot;,colour=&quot;black&quot;,geom=&quot;errorbar&quot;, size=0.5) +
+  stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.data = &quot;mean_cl_normal&quot;,colour=&quot;black&quot;,geom=&quot;errorbar&quot;, size=0.5, width=0.2) +
   stat_summary(data = df_wide, aes(y = Pretest, x = Groups), fun.y =&quot;mean&quot;, geom=&quot;point&quot;, shape=5, size=3) + 
   scale_x_discrete() +
   coord_flip() +
   scale_fill_manual(values = c(&quot;white&quot;, &quot;grey70&quot;))
 
 # Boxplot for post-test
+pd=0.2
 ybox &lt;- axis_canvas(pmain, axis = &quot;y&quot;) + 
   geom_boxplot(data = df_wide, aes(y = Posttest, x = Groups, fill=Groups), outlier.size = 1) +
-  stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.data = &quot;mean_cl_normal&quot;,colour=&quot;black&quot;,geom=&quot;errorbar&quot;, size=0.5) +
-  stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.y =&quot;mean&quot;, geom=&quot;point&quot;, shape=5, size=3) + 
+  stat_summary(data = df_wide, aes(y = Posttest, x = Groups), 
+               fun.data = &quot;mean_cl_normal&quot;,colour=&quot;black&quot;,geom=&quot;errorbar&quot;, size=0.5, width=0.2, positio=position_nudge(x = -pd)) +
+  stat_summary(data = df_wide, aes(y = Posttest, x = Groups), fun.y =&quot;mean&quot;, geom=&quot;point&quot;, shape=5, size=3, positio=position_nudge(x = -pd)) + 
   scale_x_discrete() +
-  scale_fill_manual(values = c(&quot;white&quot;, &quot;grey70&quot;))
+  scale_fill_manual(values = c(&quot;white&quot;, &quot;grey70&quot;)) +
+  geom_point(data = adj_means, aes(y = fit, x = Groups), color = &quot;Black&quot;, size = 3, shape=17, position = position_nudge(pd)) +
+  geom_errorbar(data = adj_means, aes(y = fit, ymin = lower, ymax=upper, x = Groups), size=0.5, width=0.2, position = position_nudge(pd))
 
 # Combine plots
 p1 &lt;- insert_xaxis_grob(pmain, xbox, grid::unit(1, &quot;in&quot;), position = &quot;top&quot;)
-p2 &lt;- insert_yaxis_grob(p1, ybox, grid::unit(1, &quot;in&quot;), position = &quot;right&quot;)
-
-# Show the plot
-ggdraw(p2) </code></pre>
-<p><img src="/post/2019-02-25_plotting-pre-post-test_files/figure-html/plot-1.png" width="672" /> ```</p>
+p2 &lt;- insert_yaxis_grob(p1, ybox, grid::unit(1, &quot;in&quot;), position = &quot;right&quot;)</code></pre>
+<pre class="r"><code># Show the plot
+ggarrange(p2, tab_res, nrow=2, heights = c(3,1)) </code></pre>
+<p><img src="/post/2019-02-25_plotting-pre-post-test_files/figure-html/figure-1.png" width="864" /></p>
+</div>

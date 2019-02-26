@@ -18,7 +18,7 @@
       <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/plotting-pre-post-test/</guid>
-      <description>A quick code to create a useful plot to visualise pre- and post-test results. I was inspired by this post. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&amp;gt; Subjects above the line display a better performance at post-test compared to pre-test.</description>
+      <description>WARNING: WORK IN PROGRESSA quick code to create a useful plot to visualise pre- and post-test results. I was inspired by this post and this post. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&amp;gt; Subjects above the line display a better performance at post-test compared to pre-test.</description>
     </item>
     
     <item>
