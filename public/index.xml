@@ -11,14 +11,14 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Plotting pre-post test analysis</title>
+      <title>Plotting pre-post test results</title>
       <link>/post/plotting-pre-post-test/</link>
       <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/plotting-pre-post-test/</guid>
       <description>&lt;div id=&#34;warning-work-in-progress&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;WARNING: WORK IN PROGRESS&lt;/h2&gt;
-&lt;p&gt;A quick code to create a useful plot to visualise pre- and post-test results. I was inspired by this &lt;a href=&#34;https://stackoverflow.com/questions/47446458/ggextra-plot-format-similar-marginal-plots-for-different-plot-dimensions&#34;&gt;post&lt;/a&gt; and this &lt;a href=&#34;http://faculty.missouri.edu/huangf/data/quantf/ancova_in_r_handout.pdf&#34;&gt;post&lt;/a&gt;. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&amp;gt; Subjects above the line display a better performance at post-test compared to pre-test. At the margins, the boxplots are reported as well as the mean (i.e., diamond) and 95% confidence intervals (i.e., error bars). In the case of the post-test scores (plot on the right margin), the adjsuted means (i.e., black triangles) and associated 95% confidence intervals (i.e., error bars) are reported. The table reports the results for the ANCOVA and its assumptions. In this example, participants in the training group show an improvement in a Working Memory task.&lt;/p&gt;
+&lt;p&gt;A quick code to create a useful plot to visualise pre- and post-test results. I was inspired by this &lt;a href=&#34;https://stackoverflow.com/questions/47446458/ggextra-plot-format-similar-marginal-plots-for-different-plot-dimensions&#34;&gt;post&lt;/a&gt;, this &lt;a href=&#34;http://faculty.missouri.edu/huangf/data/quantf/ancova_in_r_handout.pdf&#34;&gt;post&lt;/a&gt;, and this &lt;a href=&#34;http://elderlab.yorku.ca/~elder/teaching/psyc3031/lectures/Lecture%207%20Analysis%20of%20Covariance%20-%20ANCOVA%20(GLM%202).pdf&#34;&gt;post&lt;/a&gt;. A scatterplot between pre-test and post-test scores for the control and the traning group is presented. The straight black lines represent correlations between pre-test and post-test scores within the two groups. The straight lightgrey line represents the same values at pre-test and post-test –&amp;gt; Subjects above the line display a better performance at post-test compared to pre-test. At the margins, the boxplots are reported as well as the mean (i.e., diamond) and 95% confidence intervals (i.e., error bars). In the case of the post-test scores (plot on the right margin), the adjsuted means (i.e., black triangles) and associated 95% confidence intervals (i.e., error bars) are reported. The table reports the results for the ANCOVA and its assumptions. In this example, participants in the training group show an improvement in a Working Memory task.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Seed
 set.seed(42)
 
@@ -36,14 +36,6 @@ library(apaTables)
 library(BayesFactor)
 library(dplyr)
 library(effects)
-
-# BF_scirep_str &amp;lt;- function(model) {
-#   output &amp;lt;- formatC(round(extractBF(model, onlybf = T)), digits = 3)
-#   output &amp;lt;- sub(&amp;quot;e&amp;quot;, &amp;quot;x10&amp;lt;sup&amp;gt;&amp;quot;, output) #Replace e with 10^
-#   output &amp;lt;- sub(&amp;quot;\\+0?&amp;quot;, &amp;quot;&amp;quot;, output) #Remove + symbol and leading zeros on expoent, if &amp;gt; 1
-#   output &amp;lt;- sub(&amp;quot;-0?&amp;quot;, &amp;quot;-&amp;quot;, output) #Leaves - symbol but removes leading zeros on expoent, if &amp;lt; 1
-#   output
-# }
 
 
 # Generate some correlated values
@@ -71,6 +63,9 @@ df_wide &amp;lt;-  dcast(df_long, Subject + Groups ~ Session, value.var=&amp;quo
 
 # ANCOVA
 
+# set orthogonal contrasts
+contrasts(df_wide$Groups)=contr.poly(length(unique(df_wide$Groups))) 
+
 # Assumption 1: equality of slopes–interaction is not significiant.
 res_int &amp;lt;- aov(Posttest ~ Pretest + Groups + Groups:Pretest, data = df_wide)
 pvalue_int &amp;lt;- summary(res_int)[[1]][[&amp;quot;Pr(&amp;gt;F)&amp;quot;]][3]
@@ -92,12 +87,13 @@ res_comp_cov_bf &amp;lt;- anovaBF(Pretest ~ Groups, data = df_wide, whichRandom 
 bf_comp_cov &amp;lt;- extractBF(res_comp_cov_bf, onlybf = T)
 
 # Assumption 4: Homogeneity of variance
-res_omvar &amp;lt;- leveneTest(Posttest ~ Groups, center = mean, data = df_wide)
+res_omvar &amp;lt;- leveneTest(Posttest ~ Groups, center = median, data = df_wide)
 pvalue_omvar &amp;lt;- res_omvar$`Pr(&amp;gt;F)`[1]
 
 # Results ANCOVA
 res_anc &amp;lt;- aov(Posttest ~ Pretest + Groups, data = df_wide)
-pvalue_anc &amp;lt;- summary(res_anc)[[1]][[&amp;quot;Pr(&amp;gt;F)&amp;quot;]][2]
+res_anc_an &amp;lt;- Anova(res_anc, type=3)
+pvalue_anc &amp;lt;- res_anc_an$`Pr(&amp;gt;F)`[3]
 res_anc_bf &amp;lt;- lmBF(Posttest ~ Pretest + Groups, data = df_wide, whichRandom = &amp;quot;Subject&amp;quot;)
 res_effcov_bf &amp;lt;- lmBF(Posttest ~ Pretest, data = df_wide, whichRandom = &amp;quot;Subject&amp;quot;)
 bf_anc &amp;lt;- extractBF(res_anc_bf/res_effcov_bf, onlybf = T)

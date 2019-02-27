@@ -1,5 +1,5 @@
 ---
-title: Plotting pre-post test analysis
+title: Plotting pre-post test results
 author: FS
 date: '2019-02-25'
 slug: plotting-pre-post-test
@@ -12,8 +12,9 @@ header:
 ## WARNING: WORK IN PROGRESS
 
 A quick code to create a useful plot to visualise pre- and post-test results.
-I was inspired by this [post](https://stackoverflow.com/questions/47446458/ggextra-plot-format-similar-marginal-plots-for-different-plot-dimensions) and
-this [post](http://faculty.missouri.edu/huangf/data/quantf/ancova_in_r_handout.pdf). 
+I was inspired by this [post](https://stackoverflow.com/questions/47446458/ggextra-plot-format-similar-marginal-plots-for-different-plot-dimensions), this
+[post](http://faculty.missouri.edu/huangf/data/quantf/ancova_in_r_handout.pdf), and this 
+[post](http://elderlab.yorku.ca/~elder/teaching/psyc3031/lectures/Lecture%207%20Analysis%20of%20Covariance%20-%20ANCOVA%20(GLM%202).pdf). 
 A scatterplot between pre-test and post-test scores for the control and the traning group is presented. 
 The straight black lines represent correlations between pre-test and post-test scores within the two groups. 
 The straight lightgrey line represents the same values at pre-test and post-test --> Subjects above the line display a better performance at post-test compared to pre-test.
@@ -42,14 +43,6 @@ library(BayesFactor)
 library(dplyr)
 library(effects)
 
-# BF_scirep_str <- function(model) {
-#   output <- formatC(round(extractBF(model, onlybf = T)), digits = 3)
-#   output <- sub("e", "x10<sup>", output) #Replace e with 10^
-#   output <- sub("\\+0?", "", output) #Remove + symbol and leading zeros on expoent, if > 1
-#   output <- sub("-0?", "-", output) #Leaves - symbol but removes leading zeros on expoent, if < 1
-#   output
-# }
-
 
 # Generate some correlated values
 Scores <- c(rmvnorm(n=100,mean=c(100,100),sigma=matrix(c(15,0.8*sqrt(100), 
@@ -76,6 +69,9 @@ df_wide <-  dcast(df_long, Subject + Groups ~ Session, value.var="Scores")
 
 # ANCOVA
 
+# set orthogonal contrasts
+contrasts(df_wide$Groups)=contr.poly(length(unique(df_wide$Groups))) 
+
 # Assumption 1: equality of slopes–interaction is not significiant.
 res_int <- aov(Posttest ~ Pretest + Groups + Groups:Pretest, data = df_wide)
 pvalue_int <- summary(res_int)[[1]][["Pr(>F)"]][3]
@@ -97,12 +93,13 @@ res_comp_cov_bf <- anovaBF(Pretest ~ Groups, data = df_wide, whichRandom = "Subj
 bf_comp_cov <- extractBF(res_comp_cov_bf, onlybf = T)
 
 # Assumption 4: Homogeneity of variance
-res_omvar <- leveneTest(Posttest ~ Groups, center = mean, data = df_wide)
+res_omvar <- leveneTest(Posttest ~ Groups, center = median, data = df_wide)
 pvalue_omvar <- res_omvar$`Pr(>F)`[1]
 
 # Results ANCOVA
 res_anc <- aov(Posttest ~ Pretest + Groups, data = df_wide)
-pvalue_anc <- summary(res_anc)[[1]][["Pr(>F)"]][2]
+res_anc_an <- Anova(res_anc, type=3)
+pvalue_anc <- res_anc_an$`Pr(>F)`[3]
 res_anc_bf <- lmBF(Posttest ~ Pretest + Groups, data = df_wide, whichRandom = "Subject")
 res_effcov_bf <- lmBF(Posttest ~ Pretest, data = df_wide, whichRandom = "Subject")
 bf_anc <- extractBF(res_anc_bf/res_effcov_bf, onlybf = T)
